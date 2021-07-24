@@ -97,7 +97,6 @@ function graph() constructor {
 	tagNode = function(_id, _tag) {
 		var _id_index = getNodeIndex(_id);
 		
-			
 			//update tag of the given node if it exists
 			if (_id_index>=0) {
 				self.nodes[| _id_index].tag = _tag;
@@ -184,16 +183,16 @@ function graph() constructor {
 		for (var _i = 0; _i<_node_count; _i++) {
 			draw_sprite(Sprite1, 0, self.nodes[| _i].display_x + _origin_x, self.nodes[| _i].display_y + _origin_y);
 			
-			//Draw Edges
+			draw_text(self.nodes[| _i].display_x + _origin_x +15, self.nodes[| _i].display_y + _origin_y-25, self.nodes[| _i].tag)
+		}
+		
+		//Draw Edges
 			for (var _j = 0; _j<ds_list_size(self.edges); _j++) {
 				var _index1 = getNodeIndex(self.edges[| _j][0]);
 				var _index2 = getNodeIndex(self.edges[| _j][1]);
 			
 				draw_line(self.nodes[| _index1].display_x + _origin_x, self.nodes[|  _index1].display_y + _origin_y, self.nodes[|  _index2].display_x + _origin_x, self.nodes[|  _index2].display_y + _origin_y);
 			}
-			
-			draw_text(self.nodes[| _i].display_x + _origin_x +15, self.nodes[| _i].display_y + _origin_y-25, self.nodes[| _i].tag)
-		}
 		
 		//Draw Properties
 		draw_text(32,32, "Order: " + string(self.order()));
