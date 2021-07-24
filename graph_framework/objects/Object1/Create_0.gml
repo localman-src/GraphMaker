@@ -15,10 +15,10 @@ myGraph.tagNode(0, "0");
 
 
 
-//for (var _i = 0; _i<myGraph.order(); _i++) {
-//	if ((_i+1)%5)!=0 myGraph.newEdge(_i, _i+1, 0)
-//	myGraph.newEdge(_i, _i+5, 0);
-//}
+for (var _i = 0; _i<myGraph.order(); _i++) {
+	if ((_i+1)%5)!=0 myGraph.newEdge(_i, _i+1, 0)
+	myGraph.newEdge(_i, _i+5, 0);
+}
 
 
 myGraph.updateAdjacency();
