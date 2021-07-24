@@ -53,8 +53,8 @@ function graph() constructor {
 		
 		var _index = getNodeIndex(self.next_id - 1);
 		
-		self.nodes[| _index].display_x = mouse_x; //fucked up coordinates
-		self.nodes[| _index].display_y = mouse_y; //need to draw to screen space not room space
+		self.nodes[| _index].display_x = mouse_x; //This does not work
+		self.nodes[| _index].display_y = mouse_y; //Need to figure out drawing screen vs room
 		
 	}
 	
