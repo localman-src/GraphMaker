@@ -8,8 +8,8 @@ function node() constructor {
 
 }
 /**
- * @func					graph()
- * @desc					Graph constructor that houses all node and edge manipulation functions. Contains a list of nodes which contain a list of edges.
+ * @func			graph()
+ * @desc			Graph constructor that houses all node and edge manipulation functions. Contains a list of nodes which contain a list of edges.
  */
 function graph() constructor {
 	self.nodes = ds_list_create();
@@ -18,7 +18,8 @@ function graph() constructor {
 	self.adjacency = 0;
 	
 	/**
-	 * Creates a new node, gives it an ID, increments the ID counter.
+	 * @func			newNodeAtClick()
+	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
 	 */
 	newNode = function() {
 		var _i = new node();
@@ -31,8 +32,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					getNodeIndex(_id)
-	 * @desc					Takes a node ID and returns the index of it from the graphs self.nodes list.
+	 * @func			getNodeIndex(_id)
+	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
 	 * @param {real} _id		The ID of the node to get the index of.
 	 */
 	static getNodeIndex = function(_id) {
@@ -45,8 +46,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					newNodeAtClick()
-	 * @desc					Creates a new node using self.newNode(), places it at the x and y coordinates of the mouse click
+	 * @func			newNodeAtClick()
+	 * @desc			Creates a new node using self.newNode(), places it at the x and y coordinates of the mouse click
 	 */
 	newNodeAtClick = function() {
 		self.newNode();
@@ -59,8 +60,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					newEdge(_id1, _id2, _type)
-	 * @desc					Takes two node IDs and creates an edge between them (0, undirected, 1, directed)
+	 * @func			newEdge(_id1, _id2, _type)
+	 * @desc			Takes two node IDs and creates an edge between them (0, undirected, 1, directed)
 	 * @param {real} _id1		The ID of the first node.
 	 * @param {real} _id2		The ID to connect to the first node.
 	 * @param {real} _type		Type of connection (0, undirected, 1 directed from id1 to id2, -1 directed from id2 to id1).
@@ -84,8 +85,8 @@ function graph() constructor {
 	}
 
 	/**
-	 * @func					tagNode(_id1, _id2, _type)
-	 * @desc					Takes two node IDs and creates an edge between them (0, undirected, 1, directed)
+	 * @func			tagNode(_id1, _id2, _type)
+	 * @desc			Takes two node IDs and creates an edge between them (0, undirected, 1, directed)
 	 * @param {real} _id1		The ID of the node to update the tag on.
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
@@ -104,8 +105,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					order()
-	 * @desc					Returns the current order of the graph (Order = Number of Nodes)
+	 * @func			order()
+	 * @desc			Returns the current order of the graph (Order = Number of Nodes)
 	 */
 	order = function() {
 	return ds_list_size(self.nodes);
@@ -113,8 +114,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					size()
-	 * @desc					Returns the current size of the graph (Size = Number of Nodes)
+	 * @func			size()
+	 * @desc			Returns the current size of the graph (Size = Number of Nodes)
 	 */
 	size = function() {
 	return ds_list_size(self.edges);	
@@ -122,8 +123,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					print()
-	 * @desc					Prints the list of nodes to the debug output.
+	 * @func			print()
+	 * @desc			Prints the list of nodes to the debug output.
 	 */
 	print = function() {
 		for (var _i=0; _i<ds_list_size(self.nodes); _i++) {
@@ -133,8 +134,8 @@ function graph() constructor {
 	}
 
 	/**
-	 * @func					setDisplayCoords(_radius)
-	 * @desc					Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
+	 * @func			setDisplayCoords(_radius)
+	 * @desc			Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
 	 * @param {real} _radius	Radius of the circle to place the nodes onto.
 	 */	
 	setDisplayCoords = function(_radius) {
@@ -150,8 +151,8 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func					setGridDisplay(_radius)
-	 * @desc					Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
+	 * @func			setGridDisplay(_radius)
+	 * @desc			Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
 	 * @param {real} _columns	The number of columns in the grid.
 	 */	
 	setGridDisplay = function(_columns) {
@@ -198,8 +199,8 @@ function graph() constructor {
 	
 	
 	/**
-	 * @func					updateAdjacency()
-	 * @desc					Updates the adjacency matrix for the graph based on all current edges.
+	 * @func			updateAdjacency()
+	 * @desc			Updates the adjacency matrix for the graph based on all current edges.
 	 */
 	updateAdjacency = function() {
 		self.adjacency = 0;
@@ -224,8 +225,8 @@ function graph() constructor {
 }
 
 /**
- * @function				newGraph(_order)
- * @description				Creates a new graph with _order number of nodes.
+ * @function			newGraph(_order)
+ * @description			Creates a new graph with _order number of nodes.
  * @param {real} _order		The order of the graph to be created.
  */
 function newGraph(_order) {
