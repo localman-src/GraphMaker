@@ -40,7 +40,7 @@ function graph() constructor {
 	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
 	 * @param {real} _id		The ID of the node to get the index of.
 	 */
-	static getNodeIndex = function(_id) {
+	getNodeIndex = function(_id) {
 		//Loop through node list to find one with matching ID return -1 if can't find match
 		for (var _i = 0; _i<ds_list_size(self.nodes); _i++) {
 			if (self.nodes[| _i].node_id == _id) return _i;
