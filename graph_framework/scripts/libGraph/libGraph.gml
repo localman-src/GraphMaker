@@ -66,11 +66,8 @@ function graph() constructor {
 	 * @param {real} _type		Type of connection (0, undirected, 1 directed from id1 to id2, -1 directed from id2 to id1).
 	 */
 	newEdge = function(_id1, _id2, _type) {
-
-		var _node_count = ds_list_size(self.nodes);
 		var _id1_index = getNodeIndex(_id1);
 		var _id2_index = getNodeIndex(_id2);
-		
 		
 		//If both nodes exist add an edge to each of their edge lists
 		//If one or both don't exist return -1
@@ -93,7 +90,6 @@ function graph() constructor {
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
 	tagNode = function(_id, _tag) {
-		var _node_count = ds_list_size(self.nodes);
 		var _id_index = getNodeIndex(_id);
 		
 			
