@@ -22,7 +22,7 @@ function graph() constructor {
 	self.adjacency = 0;
 	
 	/**
-	 * @func			newNodeAtClick()
+	 * @func			newNode()
 	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
 	 */
 	newNode = function() {
