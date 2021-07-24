@@ -89,9 +89,9 @@ function graph() constructor {
 	}
 
 	/**
-	 * @func			tagNode(_id1, _id2, _type)
-	 * @desc			Takes two node IDs and creates an edge between them (0, undirected, 1, directed)
-	 * @param {real} _id1		The ID of the node to update the tag on.
+	 * @func			tagNode(_id, _tag)
+	 * @desc			Updates the tag paramater for the node with the given id.
+	 * @param {real} _id		The ID of the node to update the tag on.
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
 	tagNode = function(_id, _tag) {
