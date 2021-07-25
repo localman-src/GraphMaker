@@ -193,23 +193,25 @@ function graph() constructor {
 	 */
 	draw = function() {
 		var _node_count = ds_list_size(self.nodes);
+		var _edge_count = ds_list_size(self.edges);
 		
 		//Draw Nodes
 		for (var _i = 0; _i<_node_count; _i++) {
 			draw_sprite(Sprite1, 0, self.nodes[| _i].display_x + self.display_origin_x, self.nodes[| _i].display_y + self.display_origin_y);
+			draw_text(self.nodes[| _i].display_x + self.display_origin_x +15, self.nodes[| _i].display_y + self.display_origin_y-25, self.nodes[| _i].tag);
 			
-			draw_text(self.nodes[| _i].display_x + self.display_origin_x +15, self.nodes[| _i].display_y + self.display_origin_y-25, self.nodes[| _i].tag)
 		}
 		
 		//Draw Edges
-			for (var _j = 0; _j<ds_list_size(self.edges); _j++) {
-				var _index1 = getNodeIndex(self.edges[| _j][0]);
-				var _index2 = getNodeIndex(self.edges[| _j][1]);
+		for (var _j = 0; _j<_edge_count; _j++) {
+			var _index1 = getNodeIndex(self.edges[| _j][0]);
+			var _index2 = getNodeIndex(self.edges[| _j][1]);
 			
-				draw_line(self.nodes[| _index1].display_x + self.display_origin_x, self.nodes[|  _index1].display_y + self.display_origin_y, self.nodes[|  _index2].display_x + self.display_origin_x, self.nodes[|  _index2].display_y + self.display_origin_y);
-			}
+			draw_line(self.nodes[| _index1].display_x + self.display_origin_x, self.nodes[|  _index1].display_y + self.display_origin_y, self.nodes[|  _index2].display_x + self.display_origin_x, self.nodes[|  _index2].display_y + self.display_origin_y);
+
+		}
 		
-		//Draw Properties
+		//Draw Graph Properties
 		draw_text(32,32, "Order: " + string(self.order()));
 		draw_text(32,48, "Size : " + string(self.size()));
 		
