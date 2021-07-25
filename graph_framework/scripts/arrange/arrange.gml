@@ -35,17 +35,9 @@ function simpleGrid(_graph, _columns) {
 function force_directed(_graph, _steps, _crep, _cspr) {
 	var _node_count = ds_list_size(_graph.nodes);
 	var _edge_count = ds_list_size(_graph.edges);
-	
 
-	
-	//Randomize Starting Position
-	for (var _i = 0; _i < _node_count; _i++) {
-		_graph.nodes[| _i].display_x = round(random(room_width));
-		_graph.nodes[| _i].display_y = round(random(room_height));
-	}
-	
 	repeat (_steps) {
-		for (_i = 0; _i < _node_count; _i++) {
+		for (var _i = 0; _i < _node_count; _i++) {
 			var _sumxfrep = 0;
 			var _sumyfrep = 0;
 	
@@ -66,7 +58,7 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 					
 					//Calculate x and y components of repulsive force.
 					var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
-					var _frepy = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
+					var _frepy = _crep/(_ijdis^2) * lengthdir_y(1, _ijdir);
 				
 				} else {
 					_frepx = 0;
@@ -77,8 +69,7 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 				_sumxfrep += _frepx;
 				_sumyfrep += _frepy;
 			}
-			_graph.nodes[| _i].display_x += .5*_sumxfrep
-			_graph.nodes[| _i].display_y += .5*_sumyfrep;
+			
 		
 			//Attractive Force from Edges
 			for (var _j = 0; _j < _edge_count; _j++) {
@@ -91,18 +82,20 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 				
 				//Calculate the x and y components of the spring force
 				var _fattx = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_x(1, _ijdir);
-				var _fatty = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_x(1, _ijdir);
+				var _fatty = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_y(1, _ijdir);
 				
 			show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
 			_sumxfatt += _fattx;
 			_sumyfatt += _fatty;
 			}
-		
+			_graph.nodes[| _i].display_x += .5*_sumxfrep
+			_graph.nodes[| _i].display_y += .5*_sumyfrep;
+			
 			_graph.nodes[| _i].display_x += .5*_sumxfatt
 			_graph.nodes[| _i].display_y += .5*_sumyfatt;
 			
-			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 0, room_width);
-			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 0, room_height);
+			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, room_width/4, 3*room_width/4);
+			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, room_height/5, 4*room_height/5);
 			}
 		}
 
