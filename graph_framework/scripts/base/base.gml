@@ -144,30 +144,34 @@ function graph() constructor {
 		ds_list_delete(self.edges, _edge_index); //remove edge from graph struct.
 		
 		//Remove edge from both node structs.
-		//Not implemented.
 		var _id1_index = getNodeIndex(_id1);
 		var _id2_index = getNodeIndex(_id2);
 		
+		//If both nodes exist
 		if (_id1_index>=0 && _id2_index>=0) {
 			var _edge1_count = ds_list_size(self.nodes[| _id1].edges);
 			var _edge2_count = ds_list_size(self.nodes[| _id2].edges);
 			var _node_edge_index = -1;
 			
+			//loop through edges to find the matching edge
 			for (var _i = 0; _i < _edge1_count; _i++) {
 				if (self.nodes[| _id1].edges[| _i][0] == _id2) _node_edge_index = _i;
 			}
 			
+			//delete the appropriate edge
 			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id1].edges, _node_edge_index);
 			
+			//loop through edges to find the matching edge
 			var _node_edge_index = -1;
 			for (var _i = 0; _i < _edge2_count; _i++) {
 				if (self.nodes[| _id2].edges[| _i][0] == _id1) _node_edge_index = _i;
 			}
-			
+			//delete the appropriate edge
 			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2].edges, _node_edge_index);
 			
 			
-		} else return -1;
+		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
+						  // Most likely something extremely broken happening if this result is returned.
 		
 	}
 	
