@@ -48,8 +48,8 @@ function graph() constructor {
 		
 		var _index = getNodeIndex(self.next_id - 1);
 		
-		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This is not a good way to do this.
-		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out drawing screen vs room
+		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This is does not feel like a good way to do this.
+		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out a better way to position nodes.
 		
 	}
 	
@@ -112,6 +112,44 @@ function graph() constructor {
 	}
 	
 	/**
+	 * @func			getEdgeIndex(_id1, _id2)
+	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
+	 * @param {real} _id1		ID of the first node to check for edges from.
+	 * @param {real} _id2		ID of the second node to check for edges from.
+	 */
+	getEdgeIndex = function(_id1, _id2) {
+		var _e1 = [_id1, _id2];
+		var _e2 = [_id2, _id1];
+		
+		//Loop through node list to find one with matching ID return -1 if can't find match
+		for (var _i = 0; _i<ds_list_size(self.edges); _i++) {
+			if (array_equals(self.edges[| _i], _e1) || array_equals(self.edges[| _i], _e2)) return _i;
+		}
+		return -1;
+		
+	}
+	
+	/**
+	 * @func			removeEdge(_id1, _id2)
+	 * @desc			Takes two node IDs and removes the edge between them if it exists. Also removes the edge from the node lists.
+	 * @param {real} _id1		The ID of the first node.
+	 * @param {real} _id2		The ID to connect to the first node.
+	 * @param {real} _type		Type of connection (0, undirected, 1 directed from id1 to id2, -1 directed from id2 to id1).
+	 */	
+	removeEdge = function( _id1, _id2) {
+		var _edge_index = self.getEdgeIndex(_id1, _id2);
+		if ( _edge_index < 0 ) return -1; //early out if can't find edge;
+		
+		ds_list_delete(self.edges, _edge_index); //remove edge from graph struct.
+		
+		//Remove edge from both node structs.
+		//Not implemented.
+		var _id1_index = getNodeIndex(_id1);
+		var _id2_index = getNodeIndex(_id2);
+		
+	}
+	
+	/**
 	 * @func			order()
 	 * @desc			Returns the current order of the graph (Order = Number of Nodes)
 	 */
@@ -134,8 +172,9 @@ function graph() constructor {
 	 * @desc			Prints the list of nodes to the debug output.
 	 */
 	print = function() {
-		for (var _i=0; _i<ds_list_size(self.nodes); _i++) {
-			show_debug_message(string(self.nodes[| _i].node_id) + " " + string(self.nodes[| _i].display_x)+ " " + string(self.nodes[| _i].display_y))
+		for (var _i=0; _i<ds_list_size(self.edges); _i++) {
+			//show_debug_message(string(self.nodes[| _i].node_id) + " " + string(self.nodes[| _i].display_x)+ " " + string(self.nodes[| _i].display_y))
+			show_debug_message(string(self.edges[| _i]));
 		}
 		
 	}
@@ -220,15 +259,17 @@ function graph() constructor {
 	
 	/**
 	 * @func			updateAdjacency()
-	 * @desc			Updates the adjacency matrix for the graph based on all current edges. Currently does not work.
+	 * @desc			Updates the adjacency matrix for the graph based on all current edges. Could be faster if I knew how to only loop through above the diagonal.
 	 */
 	updateAdjacency = function() {
-		self.adjacency = 0;
 		for (var _i = 0; _i < ds_list_size(self.nodes); _i++) {
 			for (var _j = 0; _j < ds_list_size(self.nodes); _j++) {
-				if (ds_list_find_index(self.edges, [_i, _j]))!=-1 self.adjacency[_i][_j] = 1;
-				if (ds_list_find_index(self.edges, [_j, _i]))!=-1 self.adjacency[_i][_j] = 1;
+				var _e = getEdgeIndex(_i, _j);
 				
+				if ( _e >= 0 ) {
+					self.adjacency[_i, _j] = 1;
+					self.adjacency[_j, _i] = 1;
+				} else self.adjacency[_i, _j] = 0;
 			}
 			
 		}
