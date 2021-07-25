@@ -32,9 +32,12 @@ function simpleGrid(_graph, _columns) {
 	
 }
 
-function force_directed(_graph, _steps, _crep, _cspr) {
+function force_directed(_graph, _steps) {
 	var _node_count = ds_list_size(_graph.nodes);
 	var _edge_count = ds_list_size(_graph.edges);
+	
+	var _crep = 5;
+	var _cspr = 50;
 
 	repeat (_steps) {
 		for (var _i = 0; _i < _node_count; _i++) {
@@ -54,7 +57,7 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 				if (_i!=_j) { //Dont calculate repulsive force on self.
 					//Calculate direction and distance from every other node.
 					var _ijdir = point_direction(_graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y, _graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y);
-					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/1000;
+					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/room_width;
 					
 					//Calculate x and y components of repulsive force.
 					var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
