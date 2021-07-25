@@ -1,11 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 show_debug_overlay(true);
-myGraph = newGraph(10);
-simpleCircle(myGraph, 100);
+myGraph = newGraph(25);
+simpleGrid(myGraph, 5);
+
 //myGraph.simpleGrid(5);
 //myGraph.setDisplayCoords(100);
-myGraph.print();
 
 myGraph.tagNode(1, "A");
 myGraph.tagNode(3, "B");
@@ -21,5 +21,5 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	myGraph.newEdge(_i, _i+5, 0);
 }
 
-myGraph.setGraphDrawOrigin(room_width / 2, room_height / 3);
+myGraph.setGraphDrawOrigin(room_width / 3, room_height / 4);
 myGraph.updateAdjacency();

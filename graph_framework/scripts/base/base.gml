@@ -191,7 +191,7 @@ function graph() constructor {
 	 * @param {real} _origin_x	The origin point x position to offset the nodes from.
 	 * @param {real} _origin_y	The origin point y position to offset the nodes from.
 	 */
-	drawGraph = function() {
+	draw = function() {
 		var _node_count = ds_list_size(self.nodes);
 		
 		//Draw Nodes
