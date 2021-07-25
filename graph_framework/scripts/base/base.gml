@@ -145,7 +145,7 @@ function graph() constructor {
 	 * @desc			Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
 	 * @param {real} _radius	Radius of the circle to place the nodes onto.
 	 */	
-	simpleCircle = function(_radius) {
+	simpleCircleMethod = function(_radius) {
 		var _node_count = ds_list_size(self.nodes);
 		var _angle_offset = floor( 360 / _node_count );
 		
@@ -162,7 +162,7 @@ function graph() constructor {
 	 * @desc			Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
 	 * @param {real} _columns	The number of columns in the grid.
 	 */	
-	simpleGrid = function(_columns) {
+	simpleGridMethod = function(_columns) {
 		var _node_count = ds_list_size(self.nodes);
 		
 		for (var _i = 0; _i < _node_count; _i++) {
