@@ -69,7 +69,7 @@ function graph() constructor {
 	
 	/**
 	 * @func			tagNode(_id, _tag)
-	 * @desc			Updates the tag paramater for the node with the given id.
+	 * @desc			Updates the tag parameter for the node with the given id.
 	 * @param {real} _id		The ID of the node to update the tag on.
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
@@ -110,8 +110,6 @@ function graph() constructor {
 		}
 		
 	}
-
-	
 	
 	/**
 	 * @func			order()
@@ -143,7 +141,7 @@ function graph() constructor {
 	}
 
 	/**
-	 * @func			setDisplayCoords(_radius)
+	 * @func			simpleCircle(_radius)
 	 * @desc			Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
 	 * @param {real} _radius	Radius of the circle to place the nodes onto.
 	 */	
@@ -160,7 +158,7 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func			setGridDisplay(_radius)
+	 * @func			simpleGrid(_radius)
 	 * @desc			Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
 	 * @param {real} _columns	The number of columns in the grid.
 	 */	
