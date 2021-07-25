@@ -25,5 +25,6 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 myGraph.print();
 myGraph.removeEdge(0,1);
 
+myGraph.destroyNode(20);
 myGraph.setGraphDrawOrigin(room_width / 3, room_height / 4);
 myGraph.updateAdjacency();

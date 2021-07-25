@@ -171,7 +171,7 @@ function graph() constructor {
 			
 			
 		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
-						  // Most likely something extremely broken happening if this result is returned.
+					// Most likely something extremely broken happening if this result is returned.
 		
 	}
 	
@@ -302,8 +302,19 @@ function graph() constructor {
 		//show_debug_message(string(self.adjacency[1][2]));	
 	}
 	
-	destroyNode = function(_node) {
+	destroyNode = function(_id) {
+		var _node_index = getNodeIndex(_id);
+		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
 		
+		//Delink all nodes from the node to be destroyed.
+		repeat(_edge_count) {
+			self.removeEdge(self.nodes[| _node_index].edges[| 0][0], _id)
+		}
+		
+		//Destroy ds_list in the node to prevent memory leak.
+		ds_list_destroy(self.nodes[| _node_index].edges);
+		//Delete the node from the graph struct.
+		ds_list_delete(self.nodes, _node_index);
 		
 	}
 	
