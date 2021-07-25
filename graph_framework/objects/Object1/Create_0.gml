@@ -2,8 +2,10 @@
 // You can write your code in this editor
 show_debug_overlay(true);
 
-myGraph = newGraph(25);
-simpleGrid(myGraph, 5);
+myGraph = newGraph(10);
+iterations = 0
+//simpleGrid(myGraph, 5);
+
 
 //myGraph.simpleGrid(5);
 //myGraph.setDisplayCoords(100);
@@ -22,9 +24,7 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	myGraph.newEdge(_i, _i+5, 0);
 }
 
-myGraph.print();
-myGraph.removeEdge(0,1);
 
-myGraph.destroyNode(25);
-myGraph.setGraphDrawOrigin(room_width / 3, room_height / 4);
+//myGraph.removeEdge(0,1);
+//myGraph.setGraphDrawOrigin(room_width / 3, room_height / 4);
 myGraph.updateAdjacency();

@@ -32,7 +32,78 @@ function simpleGrid(_graph, _columns) {
 	
 }
 
-function Fruchterman_Reingold(_graph) {
+function force_directed(_graph, _steps, _crep, _cspr) {
+	var _node_count = ds_list_size(_graph.nodes);
+	var _edge_count = ds_list_size(_graph.edges);
 	
+
 	
+	//Randomize Starting Position
+	for (var _i = 0; _i < _node_count; _i++) {
+		_graph.nodes[| _i].display_x = round(random(room_width));
+		_graph.nodes[| _i].display_y = round(random(room_height));
+	}
+	
+	repeat (_steps) {
+		for (_i = 0; _i < _node_count; _i++) {
+			var _sumxfrep = 0;
+			var _sumyfrep = 0;
+	
+			var _sumxfatt = 0;
+			var _sumyfatt = 0;
+		
+
+			var _edge_count = ds_list_size(_graph.nodes[| _i].edges);
+			show_debug_message(string(_edge_count) + " edges.")
+		
+			//Repulsive Force From Nodes
+			for (var _j = 0; _j < _node_count; _j++) {
+				
+				if (_i!=_j) { //Dont calculate repulsive force on self.
+					//Calculate direction and distance from every other node.
+					var _ijdir = point_direction(_graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y, _graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y);
+					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/1000;
+					
+					//Calculate x and y components of repulsive force.
+					var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
+					var _frepy = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
+				
+				} else {
+					_frepx = 0;
+					_frepy = 0;
+				}
+			
+				show_debug_message(string(_i) + "," + string(_j) + " Repulsive Force: " +string(_frepx) + "," + string(_frepy))
+				_sumxfrep += _frepx;
+				_sumyfrep += _frepy;
+			}
+			_graph.nodes[| _i].display_x += .5*_sumxfrep
+			_graph.nodes[| _i].display_y += .5*_sumyfrep;
+		
+			//Attractive Force from Edges
+			for (var _j = 0; _j < _edge_count; _j++) {
+				var _node_index = _graph.getNodeIndex(_graph.nodes[| _i].edges[| _j][0]);
+				//Calculate direction and distance fromconnected node.
+				var _ijdir = point_direction(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _node_index].display_x, _graph.nodes[| _node_index].display_y);
+				var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _node_index].display_x, _graph.nodes[| _node_index].display_y);
+				
+				show_debug_message(string(_ijdir));
+				
+				//Calculate the x and y components of the spring force
+				var _fattx = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_x(1, _ijdir);
+				var _fatty = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_x(1, _ijdir);
+				
+			show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
+			_sumxfatt += _fattx;
+			_sumyfatt += _fatty;
+			}
+		
+			_graph.nodes[| _i].display_x += .5*_sumxfatt
+			_graph.nodes[| _i].display_y += .5*_sumyfatt;
+			
+			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 0, room_width);
+			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 0, room_height);
+			}
+		}
+
 }
