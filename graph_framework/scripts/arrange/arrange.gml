@@ -14,7 +14,6 @@ function simpleCircle(_graph, _radius) {
 			_graph.nodes[| _i].display_y = round(lengthdir_y( _radius, _angle_offset * _i ));
 		}
 		
-	
 }
 
 /**

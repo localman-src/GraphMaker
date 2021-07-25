@@ -40,6 +40,20 @@ function graph() constructor {
 	}
 	
 	/**
+	 * @func			newNodeAtClick()
+	 * @desc			Creates a new node using self.newNode(), places it at the x and y coordinates of the mouse click
+	 */
+	newNodeAtClick = function() {
+		self.newNode();
+		
+		var _index = getNodeIndex(self.next_id - 1);
+		
+		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This is not a good way to do this.
+		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out drawing screen vs room
+		
+	}
+	
+	/**
 	 * @func			getNodeIndex(_id)
 	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
 	 * @param {real} _id		The ID of the node to get the index of.
@@ -54,16 +68,21 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func			newNodeAtClick()
-	 * @desc			Creates a new node using self.newNode(), places it at the x and y coordinates of the mouse click
+	 * @func			tagNode(_id, _tag)
+	 * @desc			Updates the tag paramater for the node with the given id.
+	 * @param {real} _id		The ID of the node to update the tag on.
+	 * @param {string} _tag		The tag to apply to the node.
 	 */
-	newNodeAtClick = function() {
-		self.newNode();
+	tagNode = function(_id, _tag) {
+		var _id_index = getNodeIndex(_id);
 		
-		var _index = getNodeIndex(self.next_id - 1);
-		
-		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This does not work
-		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out drawing screen vs room
+			//update tag of the given node if it exists
+			if (_id_index>=0) {
+				self.nodes[| _id_index].tag = _tag;
+			} else {
+				show_debug_message("id exists: " + string(_id_index));
+				return -1;
+			}
 		
 	}
 	
@@ -92,24 +111,7 @@ function graph() constructor {
 		
 	}
 
-	/**
-	 * @func			tagNode(_id, _tag)
-	 * @desc			Updates the tag paramater for the node with the given id.
-	 * @param {real} _id		The ID of the node to update the tag on.
-	 * @param {string} _tag		The tag to apply to the node.
-	 */
-	tagNode = function(_id, _tag) {
-		var _id_index = getNodeIndex(_id);
-		
-			//update tag of the given node if it exists
-			if (_id_index>=0) {
-				self.nodes[| _id_index].tag = _tag;
-			} else {
-				show_debug_message("id exists: " + string(_id_index));
-				return -1;
-			}
-		
-	}
+	
 	
 	/**
 	 * @func			order()
@@ -191,7 +193,7 @@ function graph() constructor {
 	 * @param {real} _origin_x	The origin point x position to offset the nodes from.
 	 * @param {real} _origin_y	The origin point y position to offset the nodes from.
 	 */
-	drawGraph = function(_origin_x, _origin_y) {
+	drawGraph = function() {
 		var _node_count = ds_list_size(self.nodes);
 		
 		//Draw Nodes
