@@ -148,6 +148,27 @@ function graph() constructor {
 		var _id1_index = getNodeIndex(_id1);
 		var _id2_index = getNodeIndex(_id2);
 		
+		if (_id1_index>=0 && _id2_index>=0) {
+			var _edge1_count = ds_list_size(self.nodes[| _id1].edges);
+			var _edge2_count = ds_list_size(self.nodes[| _id2].edges);
+			var _node_edge_index = -1;
+			
+			for (var _i = 0; _i < _edge1_count; _i++) {
+				if (self.nodes[| _id1].edges[| _i][0] == _id2) _node_edge_index = _i;
+			}
+			
+			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id1].edges, _node_edge_index);
+			
+			var _node_edge_index = -1;
+			for (var _i = 0; _i < _edge2_count; _i++) {
+				if (self.nodes[| _id2].edges[| _i][0] == _id1) _node_edge_index = _i;
+			}
+			
+			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2].edges, _node_edge_index);
+			
+			
+		} else return -1;
+		
 	}
 	
 	/**
