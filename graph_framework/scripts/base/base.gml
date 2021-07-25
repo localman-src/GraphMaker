@@ -176,66 +176,28 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func			order()
-	 * @desc			Returns the current order of the graph (Order = Number of Nodes)
+	 * @func			destroyNode(_id)
+	 * @desc			Destroys the ID of the node if it exists and removes all edges from all connected nodes as well as the graph.
+	 * @param {real} _id	The id of the node to be destroyed.
 	 */
-	order = function() {
-	return ds_list_size(self.nodes);
+	destroyNode = function(_id) {
+		var _node_index = getNodeIndex(_id);
+		if (_node_index < 0) return -1; // Early out if requested node doesn't exist.
 		
-	}
-	
-	/**
-	 * @func			size()
-	 * @desc			Returns the current size of the graph (Size = Number of Nodes)
-	 */
-	size = function() {
-	return ds_list_size(self.edges);	
+		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
 		
-	}
-	
-	/**
-	 * @func			print()
-	 * @desc			Prints the list of nodes to the debug output.
-	 */
-	print = function() {
-		for (var _i=0; _i<ds_list_size(self.edges); _i++) {
-			//show_debug_message(string(self.nodes[| _i].node_id) + " " + string(self.nodes[| _i].display_x)+ " " + string(self.nodes[| _i].display_y))
-			show_debug_message(string(self.edges[| _i]));
+		
+		//Delink all nodes from the node to be destroyed.
+		repeat(_edge_count) {
+			self.removeEdge(self.nodes[| _node_index].edges[| 0][0], _id)
 		}
 		
-	}
-
-	/**
-	 * @func			simpleCircle(_radius)
-	 * @desc			Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
-	 * @param {real} _radius	Radius of the circle to place the nodes onto.
-	 */	
-	simpleCircleMethod = function(_radius) {
-		var _node_count = ds_list_size(self.nodes);
-		var _angle_offset = floor( 360 / _node_count );
+		//Destroy ds_list in the node to prevent memory leak.
+		ds_list_destroy(self.nodes[| _node_index].edges);
+		//Delete the node from the graph struct.
+		ds_list_delete(self.nodes, _node_index);
 		
-		for (var _i = 0; _i<_node_count; _i++) {
-			self.nodes[| _i].display_x = round(lengthdir_x( _radius, _angle_offset * _i ));
-			self.nodes[| _i].display_y = round(lengthdir_y( _radius, _angle_offset * _i ));
-		}
-		
-		
-	}
-	
-	/**
-	 * @func			simpleGrid(_radius)
-	 * @desc			Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
-	 * @param {real} _columns	The number of columns in the grid.
-	 */	
-	simpleGridMethod = function(_columns) {
-		var _node_count = ds_list_size(self.nodes);
-		
-		for (var _i = 0; _i < _node_count; _i++) {
-			self.nodes[| _i].display_x = (64 * (_i % _columns));
-			self.nodes[| _i].display_y = (64 * (_i div _columns));
-			
-		}
-		
+		return 1;
 	}
 	
 	/**
@@ -282,6 +244,23 @@ function graph() constructor {
 		
 	}
 	
+	/**
+	 * @func			order()
+	 * @desc			Returns the current order of the graph (Order = Number of Nodes)
+	 */
+	order = function() {
+	return ds_list_size(self.nodes);
+		
+	}
+	
+	/**
+	 * @func			size()
+	 * @desc			Returns the current size of the graph (Size = Number of Nodes)
+	 */
+	size = function() {
+	return ds_list_size(self.edges);	
+		
+	}
 	
 	/**
 	 * @func			updateAdjacency()
@@ -302,30 +281,7 @@ function graph() constructor {
 		//show_debug_message(string(self.adjacency[1][2]));	
 	}
 	
-	/**
-	 * @func			destroyNode(_id)
-	 * @desc			Destroys the ID of the node if it exists and removes all edges from all connected nodes as well as the graph.
-	 * @param {real} _id	The id of the node to be destroyed.
-	 */
-	destroyNode = function(_id) {
-		var _node_index = getNodeIndex(_id);
-		if (_node_index < 0) return -1; // Early out if requested node doesn't exist.
-		
-		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
-		
-		
-		//Delink all nodes from the node to be destroyed.
-		repeat(_edge_count) {
-			self.removeEdge(self.nodes[| _node_index].edges[| 0][0], _id)
-		}
-		
-		//Destroy ds_list in the node to prevent memory leak.
-		ds_list_destroy(self.nodes[| _node_index].edges);
-		//Delete the node from the graph struct.
-		ds_list_delete(self.nodes, _node_index);
-		
-		return 1;
-	}
+
 	
 }
 

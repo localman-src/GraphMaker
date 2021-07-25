@@ -31,3 +31,8 @@ function simpleGrid(_graph, _columns) {
 		}
 	
 }
+
+function Fruchterman_Reingold(_graph) {
+	
+	
+}
