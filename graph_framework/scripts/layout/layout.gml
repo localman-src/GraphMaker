@@ -32,6 +32,12 @@ function simpleGrid(_graph, _columns) {
 	
 }
 
+/**
+* @func			force_directed(_graph, _steps)
+* @desc			Positions nodes in a graph using force-directed placement. Edges are treated as springs with attractive forces. Nodes repel each other.
+* @param {struct} _graph	Graph struct to set points for.
+* @param {real} _steps		Number of iterations to run.
+*/	
 function force_directed(_graph, _steps) {
 	var _node_count = ds_list_size(_graph.nodes);
 	var _edge_count = ds_list_size(_graph.edges);

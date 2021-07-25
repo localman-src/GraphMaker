@@ -6,7 +6,7 @@
     "path": "folders/Scripts/libGraph.yy",
   },
   "resourceVersion": "1.0",
-  "name": "arrange",
+  "name": "layout",
   "tags": [],
   "resourceType": "GMScript",
 }
