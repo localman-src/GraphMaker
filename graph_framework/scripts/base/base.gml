@@ -302,9 +302,17 @@ function graph() constructor {
 		//show_debug_message(string(self.adjacency[1][2]));	
 	}
 	
+	/**
+	 * @func			destroyNode(_id)
+	 * @desc			Destroys the ID of the node if it exists and removes all edges from all connected nodes as well as the graph.
+	 * @param {real} _id	The id of the node to be destroyed.
+	 */
 	destroyNode = function(_id) {
 		var _node_index = getNodeIndex(_id);
+		if (_node_index < 0) return -1; // Early out if requested node doesn't exist.
+		
 		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
+		
 		
 		//Delink all nodes from the node to be destroyed.
 		repeat(_edge_count) {
@@ -316,6 +324,7 @@ function graph() constructor {
 		//Delete the node from the graph struct.
 		ds_list_delete(self.nodes, _node_index);
 		
+		return 1;
 	}
 	
 }
