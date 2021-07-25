@@ -178,7 +178,7 @@ function graph() constructor {
 	/**
 	 * @func			destroyNode(_id)
 	 * @desc			Destroys the ID of the node if it exists and removes all edges from all connected nodes as well as the graph.
-	 * @param {real} _id	The id of the node to be destroyed.
+	 * @param {real} _id		The id of the node to be destroyed.
 	 */
 	destroyNode = function(_id) {
 		var _node_index = getNodeIndex(_id);
