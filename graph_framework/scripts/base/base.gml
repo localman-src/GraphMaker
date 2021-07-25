@@ -11,6 +11,7 @@ function node() constructor {
 	self.display_y = 0;
 
 }
+
 /**
  * @func			graph()
  * @desc			Graph constructor that houses all node and edge manipulation functions. Contains a list of nodes which contain a list of edges.
@@ -21,6 +22,8 @@ function graph() constructor {
 	self.next_id = 0;
 	self.adjacency = 0;
 	
+	self.display_origin_x = 0;
+	self.display_origin_y = 0;
 	/**
 	 * @func			newNode()
 	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
@@ -58,8 +61,8 @@ function graph() constructor {
 		
 		var _index = getNodeIndex(self.next_id - 1);
 		
-		self.nodes[| _index].display_x = mouse_x; //This does not work
-		self.nodes[| _index].display_y = mouse_y; //Need to figure out drawing screen vs room
+		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This does not work
+		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out drawing screen vs room
 		
 	}
 	
@@ -169,6 +172,17 @@ function graph() constructor {
 		
 	}
 	
+	/**
+	 * @func			setGraphDrawOrigin(_x, _y)
+	 * @desc			Sets the display origin point for the graph.
+	 * @param {real} _x		The number of columns in the grid.
+	 * @param {real} _y		The number of columns in the grid.
+	 */	
+	setGraphDrawOrigin = function(_x, _y) {
+		self.display_origin_x = _x;
+		self.display_origin_y = _y;
+		
+	}
 	
 	/**
 	 * @func			drawGraph(_origin_x, _origin_y)
@@ -181,9 +195,9 @@ function graph() constructor {
 		
 		//Draw Nodes
 		for (var _i = 0; _i<_node_count; _i++) {
-			draw_sprite(Sprite1, 0, self.nodes[| _i].display_x + _origin_x, self.nodes[| _i].display_y + _origin_y);
+			draw_sprite(Sprite1, 0, self.nodes[| _i].display_x + self.display_origin_x, self.nodes[| _i].display_y + self.display_origin_y);
 			
-			draw_text(self.nodes[| _i].display_x + _origin_x +15, self.nodes[| _i].display_y + _origin_y-25, self.nodes[| _i].tag)
+			draw_text(self.nodes[| _i].display_x + self.display_origin_x +15, self.nodes[| _i].display_y + self.display_origin_y-25, self.nodes[| _i].tag)
 		}
 		
 		//Draw Edges
@@ -191,7 +205,7 @@ function graph() constructor {
 				var _index1 = getNodeIndex(self.edges[| _j][0]);
 				var _index2 = getNodeIndex(self.edges[| _j][1]);
 			
-				draw_line(self.nodes[| _index1].display_x + _origin_x, self.nodes[|  _index1].display_y + _origin_y, self.nodes[|  _index2].display_x + _origin_x, self.nodes[|  _index2].display_y + _origin_y);
+				draw_line(self.nodes[| _index1].display_x + self.display_origin_x, self.nodes[|  _index1].display_y + self.display_origin_y, self.nodes[|  _index2].display_x + self.display_origin_x, self.nodes[|  _index2].display_y + self.display_origin_y);
 			}
 		
 		//Draw Properties
