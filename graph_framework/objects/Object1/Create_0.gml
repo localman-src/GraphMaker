@@ -2,6 +2,7 @@
 // You can write your code in this editor
 show_debug_overlay(true);
 randomize();
+
 myGraph = newGraph(25);
 iterations = 1;
 //simpleGrid(myGraph, 5);
@@ -30,7 +31,7 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 		myGraph.nodes[| _i].display_y = round(random(room_height));
 	}
 	
-//myGraph.newEdge(0, myGraph.order() -1,0);
+myGraph.newEdge(0, myGraph.order() -1,0);
 //myGraph.removeEdge(0,1);
 //myGraph.setGraphDrawOrigin(room_width / 3, room_height / 4);
 myGraph.updateAdjacency();
