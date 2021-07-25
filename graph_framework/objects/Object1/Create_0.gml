@@ -3,7 +3,7 @@
 show_debug_overlay(true);
 randomize();
 
-myGraph = newGraph(25);
+myGraph = newGraph(36);
 iterations = 1;
 //simpleGrid(myGraph, 5);
 
@@ -21,8 +21,8 @@ myGraph.tagNode(0, "0");
 
 
 for (var _i = 0; _i<myGraph.order(); _i++) {
-	if (_i+1) % 5 != 0 myGraph.newEdge(_i, _i+1, 0);
-	myGraph.newEdge(_i, _i+5, 0);
+	if (_i+1) % 6 != 0 myGraph.newEdge(_i, _i+1, 0);
+	myGraph.newEdge(_i, _i+6, 0);
 }
 
 	//Randomize Starting Position
