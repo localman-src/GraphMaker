@@ -3,7 +3,7 @@
 
 if (keyboard_check_pressed(vk_space)) {
 	myGraph.newNode();
-	myGraph.setDisplayCoords(100);
+	myGraph.simpleCircle(100);
 }
 
 if mouse_check_button_pressed(mb_left) myGraph.newNodeAtClick();

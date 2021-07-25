@@ -1,8 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 show_debug_overlay(true);
-myGraph = newGraph(25);
-myGraph.setGridDisplay(5);
+myGraph = newGraph(10);
+simpleCircle(myGraph, 100);
+//myGraph.simpleGrid(5);
 //myGraph.setDisplayCoords(100);
 myGraph.print();
 

@@ -24,6 +24,7 @@ function graph() constructor {
 	
 	self.display_origin_x = 0;
 	self.display_origin_y = 0;
+	
 	/**
 	 * @func			newNode()
 	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
@@ -144,7 +145,7 @@ function graph() constructor {
 	 * @desc			Sets the display_x and display_y values for all nodes. This function evenly spaces nodes around a circle.
 	 * @param {real} _radius	Radius of the circle to place the nodes onto.
 	 */	
-	setDisplayCoords = function(_radius) {
+	simpleCircle = function(_radius) {
 		var _node_count = ds_list_size(self.nodes);
 		var _angle_offset = floor( 360 / _node_count );
 		
@@ -161,7 +162,7 @@ function graph() constructor {
 	 * @desc			Sets the display_x and display_y values for all nodes. This function places the nodes into a grid with a specified number of columns.
 	 * @param {real} _columns	The number of columns in the grid.
 	 */	
-	setGridDisplay = function(_columns) {
+	simpleGrid = function(_columns) {
 		var _node_count = ds_list_size(self.nodes);
 		
 		for (var _i = 0; _i < _node_count; _i++) {
@@ -217,7 +218,7 @@ function graph() constructor {
 	
 	/**
 	 * @func			updateAdjacency()
-	 * @desc			Updates the adjacency matrix for the graph based on all current edges.
+	 * @desc			Updates the adjacency matrix for the graph based on all current edges. Currently does not work.
 	 */
 	updateAdjacency = function() {
 		self.adjacency = 0;
@@ -232,12 +233,10 @@ function graph() constructor {
 		//show_debug_message(string(self.adjacency[1][2]));	
 	}
 	
-	destroy = function(_node) {
+	destroyNode = function(_node) {
 		
 		
 	}
-	
-	
 	
 }
 
