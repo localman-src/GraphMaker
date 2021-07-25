@@ -87,10 +87,12 @@ function force_directed(_graph, _steps) {
 				var _fattx = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_x(1, _ijdir);
 				var _fatty = (_cspr * ln( _ijdis / 25) )  * lengthdir_y(1, _ijdir);
 				
-			show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
-			_sumxfatt += _fattx;
-			_sumyfatt += _fatty;
+				show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
+				_sumxfatt += _fattx;
+				_sumyfatt += _fatty;
 			}
+			
+			
 			_graph.nodes[| _i].display_x += .5*_sumxfrep
 			_graph.nodes[| _i].display_y += .5*_sumyfrep;
 			
@@ -99,7 +101,7 @@ function force_directed(_graph, _steps) {
 			
 			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
 			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
+			
 			}
 		}
-
 }
