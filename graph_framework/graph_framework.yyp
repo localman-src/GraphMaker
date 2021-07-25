@@ -4,6 +4,7 @@
     {"id":{"name":"layout","path":"scripts/layout/layout.yy",},"order":1,},
     {"id":{"name":"Object1","path":"objects/Object1/Object1.yy",},"order":0,},
     {"id":{"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy",},"order":0,},
+    {"id":{"name":"rewrite","path":"scripts/rewrite/rewrite.yy",},"order":3,},
     {"id":{"name":"creation","path":"scripts/creation/creation.yy",},"order":2,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
   ],
