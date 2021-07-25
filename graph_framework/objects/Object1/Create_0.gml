@@ -1,6 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 show_debug_overlay(true);
+
 myGraph = newGraph(25);
 simpleGrid(myGraph, 5);
 
