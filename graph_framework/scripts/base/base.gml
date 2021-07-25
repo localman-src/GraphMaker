@@ -59,8 +59,9 @@ function graph() constructor {
 	 * @param {real} _id		The ID of the node to get the index of.
 	 */
 	getNodeIndex = function(_id) {
+		var _node_count = ds_list_size(self.nodes);
 		//Loop through node list to find one with matching ID return -1 if can't find match
-		for (var _i = 0; _i<ds_list_size(self.nodes); _i++) {
+		for (var _i = 0; _i<_node_count; _i++) {
 			if (self.nodes[| _i].node_id == _id) return _i;
 		}
 		return -1;
@@ -121,7 +122,7 @@ function graph() constructor {
 		var _e1 = [_id1, _id2];
 		var _e2 = [_id2, _id1];
 		
-		//Loop through node list to find one with matching ID return -1 if can't find match
+		//Loop through edge list to find one with matching pattern. Return -1 if can't find match
 		for (var _i = 0; _i<ds_list_size(self.edges); _i++) {
 			if (array_equals(self.edges[| _i], _e1) || array_equals(self.edges[| _i], _e2)) return _i;
 		}
