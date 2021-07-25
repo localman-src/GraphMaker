@@ -81,8 +81,8 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 				show_debug_message(string(_ijdir));
 				
 				//Calculate the x and y components of the spring force
-				var _fattx = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_x(1, _ijdir);
-				var _fatty = (_cspr * ln( _ijdis / 100 ) )  * lengthdir_y(1, _ijdir);
+				var _fattx = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_x(1, _ijdir);
+				var _fatty = (_cspr * ln( _ijdis / 25) )  * lengthdir_y(1, _ijdir);
 				
 			show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
 			_sumxfatt += _fattx;
@@ -94,8 +94,8 @@ function force_directed(_graph, _steps, _crep, _cspr) {
 			_graph.nodes[| _i].display_x += .5*_sumxfatt
 			_graph.nodes[| _i].display_y += .5*_sumyfatt;
 			
-			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, room_width/4, 3*room_width/4);
-			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, room_height/5, 4*room_height/5);
+			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
+			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
 			}
 		}
 
