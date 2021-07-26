@@ -22,11 +22,12 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	myGraph.newEdge(_i, _i+5, 0);
 }
 
-	//Randomize Starting Position
-	for (var _i = 0; _i < myGraph.order(); _i++) {
-		myGraph.nodes[| _i].display_x = round(random(room_width));
-		myGraph.nodes[| _i].display_y = round(random(room_height));
-	}
+simpleGrid(myGraph, 5);
+	////Randomize Starting Position
+	//for (var _i = 0; _i < myGraph.order(); _i++) {
+	//	myGraph.nodes[| _i].display_x = round(random(room_width));
+	//	myGraph.nodes[| _i].display_y = round(random(room_height));
+	//}
 
 myGraph.nodes[| 12].display_x = room_width/2;
 myGraph.nodes[| 12].display_y = room_height/2;
