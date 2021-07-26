@@ -45,8 +45,8 @@ function force_directed(_graph, _steps) {
 	var _crep = 3;
 	var _cspr = 30;
 
-_graph.nodes[| 12].display_x = room_width/2;
-_graph.nodes[| 12].display_y = room_height/2;
+//_graph.nodes[| 12].display_x = room_width/2;
+//_graph.nodes[| 12].display_y = room_height/2;
 
 	repeat (_steps) {
 		for (var _i = 0; _i < _node_count; _i++) {
@@ -69,9 +69,14 @@ _graph.nodes[| 12].display_y = room_height/2;
 					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/(room_width);
 					
 					//Calculate x and y components of repulsive force.
-					var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
-					var _frepy = _crep/(_ijdis^2) * lengthdir_y(1, _ijdir);
-				
+					if (_ijdis*room_width<200) {
+						var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
+						var _frepy = _crep/(_ijdis^2) * lengthdir_y(1, _ijdir);
+					} else {
+						var _frepx = 0;
+						var _frepy = 0;
+					}
+					
 				} else {
 					_frepx = 0;
 					_frepy = 0;
@@ -111,8 +116,8 @@ _graph.nodes[| 12].display_y = room_height/2;
 			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
 			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
 			
-			_graph.nodes[| 12].display_x = room_width/2;
-			_graph.nodes[| 12].display_y = room_height/2;
+			//_graph.nodes[| 12].display_x = room_width/2;
+			//_graph.nodes[| 12].display_y = room_height/2;
 			
 			}
 		}
