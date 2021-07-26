@@ -33,8 +33,8 @@ function simpleGrid(_graph, _columns) {
 }
 
 /**
-* @func			force_directed(_graph, _steps)
-* @desc			Positions nodes in a graph using force-directed placement. Edges are treated as springs with attractive forces. Nodes repel each other.
+* @func					force_directed(_graph, _steps)
+* @desc					Positions nodes in a graph using force-directed placement. Edges are treated as springs with attractive forces. Nodes repel each other.
 * @param {struct} _graph		Graph struct to set points for.
 * @param {real} _steps			Number of iterations to run.
 * @param {real} _crep			Constant for repulsion force between nodes. Greater values = greater repulsion force.
