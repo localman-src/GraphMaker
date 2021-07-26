@@ -42,8 +42,11 @@ function force_directed(_graph, _steps) {
 	var _node_count = ds_list_size(_graph.nodes);
 	var _edge_count = ds_list_size(_graph.edges);
 	
-	var _crep = 5;
-	var _cspr = 50;
+	var _crep = 3;
+	var _cspr = 30;
+
+_graph.nodes[| 12].display_x = room_width/2;
+_graph.nodes[| 12].display_y = room_height/2;
 
 	repeat (_steps) {
 		for (var _i = 0; _i < _node_count; _i++) {
@@ -63,7 +66,7 @@ function force_directed(_graph, _steps) {
 				if (_i!=_j) { //Dont calculate repulsive force on self.
 					//Calculate direction and distance from every other node.
 					var _ijdir = point_direction(_graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y, _graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y);
-					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/room_width;
+					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/(room_width);
 					
 					//Calculate x and y components of repulsive force.
 					var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
@@ -91,7 +94,7 @@ function force_directed(_graph, _steps) {
 				
 				//Calculate the x and y components of the spring force
 				var _fattx = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_x(1, _ijdir);
-				var _fatty = (_cspr * ln( _ijdis / 25) )  * lengthdir_y(1, _ijdir);
+				var _fatty = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_y(1, _ijdir);
 				
 				show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
 				_sumxfatt += _fattx;
@@ -107,6 +110,9 @@ function force_directed(_graph, _steps) {
 			
 			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
 			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
+			
+			_graph.nodes[| 12].display_x = room_width/2;
+			_graph.nodes[| 12].display_y = room_height/2;
 			
 			}
 		}
