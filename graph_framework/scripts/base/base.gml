@@ -31,11 +31,12 @@ function graph() constructor {
 	 */
 	newNode = function() {
 		var _i = new node();
+		
 		_i.node_id = self.next_id;
-		
 		self.next_id++;
-		
 		ds_list_add(self.nodes, _i);
+		
+		return self;
 		
 	}
 	
@@ -110,6 +111,7 @@ function graph() constructor {
 			return -1;
 		}
 		
+		return self;
 	}
 	
 	/**
@@ -172,7 +174,7 @@ function graph() constructor {
 			//delete the appropriate edge
 			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2_index].edges, _node_edge_index);
 			
-			return 1;
+			return self;
 		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
 					// Most likely something extremely broken happening if this result is returned.
 		
@@ -201,7 +203,7 @@ function graph() constructor {
 		//Delete the node from the graph struct.
 		ds_list_delete(self.nodes, _node_index);
 		
-		return 1;
+		return self;
 	}
 	
 	/**
@@ -214,6 +216,7 @@ function graph() constructor {
 		self.display_origin_x = _x;
 		self.display_origin_y = _y;
 		
+		return self;
 	}
 	
 	/**
@@ -283,7 +286,7 @@ function graph() constructor {
 			}
 			
 		}
-		//show_debug_message(string(self.adjacency[1][2]));	
+		return self;
 	}
 	
 

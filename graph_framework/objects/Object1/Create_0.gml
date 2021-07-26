@@ -5,7 +5,9 @@ show_debug_overlay(true);
 randomize();
 
 counter = 0;
-myGraph = newGraph(25);
+myGraph = newGraph(25).newNode().newEdge(25,0,0).updateAdjacency().setGraphDrawOrigin(room_width/2, room_height/2);
+
+simpleCircle(myGraph, 100);
 
 myGraph.tagNode(0, " ");
 myGraph.tagNode(1, "1");
@@ -23,15 +25,13 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 }
 
 
-	//Randomize Starting Position
-	for (var _i = 0; _i < myGraph.order(); _i++) {
-		myGraph.nodes[| _i].display_x = round(random(room_width));
-		myGraph.nodes[| _i].display_y = round(random(room_height));
-	}
-
-//myGraph.nodes[| 12].display_x = room_width/2;
-//myGraph.nodes[| 12].display_y = room_height/2;
+	////Randomize Starting Position
+	//for (var _i = 0; _i < myGraph.order(); _i++) {
+	//	myGraph.nodes[| _i].display_x = round(random(room_width));
+	//	myGraph.nodes[| _i].display_y = round(random(room_height));
+	//}
 
 
 
-myGraph.updateAdjacency();
+
+
