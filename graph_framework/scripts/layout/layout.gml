@@ -39,9 +39,9 @@ function simpleGrid(_graph, _columns) {
 * @param {real} _steps			Number of iterations to run.
 * @param {real} _crep			Constant for repulsion force between nodes. Greater values = greater repulsion force.
 * @param {real} _cspr			Spring constant for edge force between connected nodes. Greater values = greater attractive force.
-* @param {real} _distance_scale			Divides pixel distance by this scale to get repulsion force distance. Greater values = greater repulsion force.
-* @param {real} _preferred_edge_length		Distance in pixels at which the attractive force = 0;
-* @param {real} _repulsion_limit		Maximum distance in pixels for which the repulsion force will be applied. Greater values = greater layout spread. Tuning this param too high can result in hard to read layouts.
+* @param {real} _distance_scale		Divides pixel distance by this scale to get repulsion force distance. Greater values = greater repulsion force.
+* @param {real} _preferred_edge_length	Distance in pixels at which the attractive force = 0;
+* @param {real} _repulsion_limit	Maximum distance in pixels for which the repulsion force will be applied. Greater values = greater layout spread. Tuning this param too high can result in hard to read layouts.
 */	
 function force_directed(_graph, _steps, _crep, _cspr, _distance_scale, _preferred_edge_length, _repulsion_limit) {
 	
