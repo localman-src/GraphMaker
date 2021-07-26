@@ -23,9 +23,7 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 		myGraph.nodes[| _i].display_y = round(random(room_height));
 	}
 
-show_debug_message(string(myGraph.nodes[| 9].edges[| 0]))
-show_debug_message(string(myGraph.nodes[| 9].edges[| 1]))
-show_debug_message(string(myGraph.nodes[| 9].edges[| 2]))
+
 myGraph.destroyNode(0);
 myGraph.destroyNode(1);
 myGraph.destroyNode(4);

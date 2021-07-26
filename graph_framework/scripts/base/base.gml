@@ -121,7 +121,7 @@ function graph() constructor {
 	getEdgeIndex = function(_id1, _id2) {
 		var _e1 = [_id1, _id2];
 		var _e2 = [_id2, _id1];
-		show_debug_message("Looking for edge: " + string(_e1) + " or " + string(_e2));
+	
 		//Loop through edge list to find one with matching pattern. Return -1 if can't find match
 		for (var _i = 0; _i<ds_list_size(self.edges); _i++) {
 			if (array_equals(self.edges[| _i], _e1) || array_equals(self.edges[| _i], _e2)) return _i;
@@ -172,7 +172,7 @@ function graph() constructor {
 			//delete the appropriate edge
 			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2_index].edges, _node_edge_index);
 			
-			
+			return 1;
 		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
 					// Most likely something extremely broken happening if this result is returned.
 		
@@ -189,7 +189,6 @@ function graph() constructor {
 		
 		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
 		
-		show_debug_message(ds_list_size(self.nodes[| _node_index].edges));
 		//Delink all nodes from the node to be destroyed.
 		repeat(_edge_count) {
 			show_debug_message(string(self.nodes[| _node_index].edges[| 0]));
