@@ -38,12 +38,18 @@ function simpleGrid(_graph, _columns) {
 * @param {struct} _graph	Graph struct to set points for.
 * @param {real} _steps		Number of iterations to run.
 */	
-function force_directed(_graph, _steps) {
+function force_directed(_graph, _steps, _crep, _cspr, _distance_scale, _preferred_edge_length, _repulsion_limit) {
+	
+	//Good Default Values:
+	// _crep = 3;
+	// _cspr = 30;
+	// _distance_scale = room_width;
+	// _preferred_edge_length = 25;
+	// _repulsion_limit = 200;
+
 	var _node_count = ds_list_size(_graph.nodes);
 	var _edge_count = ds_list_size(_graph.edges);
 	
-	var _crep = 3;
-	var _cspr = 30;
 
 	repeat (_steps) {
 		for (var _i = 0; _i < _node_count; _i++) {
@@ -63,10 +69,10 @@ function force_directed(_graph, _steps) {
 				if (_i!=_j) { //Dont calculate repulsive force on self.
 					//Calculate direction and distance from every other node.
 					var _ijdir = point_direction(_graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y, _graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y);
-					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/(room_width);
+					var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _j].display_x, _graph.nodes[| _j].display_y)/(_distance_scale);
 					
 					//Calculate x and y components of repulsive force.
-					if (_ijdis*room_width<200) {
+					if (_ijdis*_distance_scale<_repulsion_limit) {
 						var _frepx = _crep/(_ijdis^2) * lengthdir_x(1, _ijdir);
 						var _frepy = _crep/(_ijdis^2) * lengthdir_y(1, _ijdir);
 					} else {
@@ -95,8 +101,8 @@ function force_directed(_graph, _steps) {
 				show_debug_message(string(_ijdir));
 				
 				//Calculate the x and y components of the spring force
-				var _fattx = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_x(1, _ijdir);
-				var _fatty = (_cspr * ln( _ijdis / 25 ) )  * lengthdir_y(1, _ijdir);
+				var _fattx = (_cspr * ln( _ijdis / _preferred_edge_length ) )  * lengthdir_x(1, _ijdir);
+				var _fatty = (_cspr * ln( _ijdis / _preferred_edge_length ) )  * lengthdir_y(1, _ijdir);
 				
 				show_debug_message(string(_i) + "," + string(_j) + " Attractive Force: " +string(_fattx) + "," + string(_fatty))
 				_sumxfatt += _fattx;
@@ -110,8 +116,8 @@ function force_directed(_graph, _steps) {
 			_graph.nodes[| _i].display_x += .5*_sumxfatt
 			_graph.nodes[| _i].display_y += .5*_sumyfatt;
 			
-			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
-			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
+			//_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
+			//_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
 
 			
 			}

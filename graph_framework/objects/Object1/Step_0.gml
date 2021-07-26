@@ -2,7 +2,7 @@
 // You can write your code in this editor
 counter ++
 if mouse_check_button(mb_left) && counter%3==0 {
-	force_directed(myGraph, 1);
+	force_directed(myGraph, 1, 3, 30, room_width, 25, 200);
 	
 }
 
