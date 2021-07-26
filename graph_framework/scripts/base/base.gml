@@ -260,7 +260,7 @@ function graph() constructor {
 	
 	/**
 	 * @func			size()
-	 * @desc			Returns the current size of the graph (Size = Number of Nodes)
+	 * @desc			Returns the current size of the graph (Size = Number of Edges)
 	 */
 	size = function() {
 	return ds_list_size(self.edges);	
