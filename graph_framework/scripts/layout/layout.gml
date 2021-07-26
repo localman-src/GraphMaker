@@ -45,9 +45,6 @@ function force_directed(_graph, _steps) {
 	var _crep = 3;
 	var _cspr = 30;
 
-//_graph.nodes[| 12].display_x = room_width/2;
-//_graph.nodes[| 12].display_y = room_height/2;
-
 	repeat (_steps) {
 		for (var _i = 0; _i < _node_count; _i++) {
 			var _sumxfrep = 0;
@@ -115,9 +112,7 @@ function force_directed(_graph, _steps) {
 			
 			_graph.nodes[| _i].display_x = clamp(_graph.nodes[| _i].display_x, 16, room_width-16);
 			_graph.nodes[| _i].display_y = clamp(_graph.nodes[| _i].display_y, 16, room_height-16);
-			
-			//_graph.nodes[| 12].display_x = room_width/2;
-			//_graph.nodes[| 12].display_y = room_height/2;
+
 			
 			}
 		}
