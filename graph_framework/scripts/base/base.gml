@@ -121,7 +121,7 @@ function graph() constructor {
 	getEdgeIndex = function(_id1, _id2) {
 		var _e1 = [_id1, _id2];
 		var _e2 = [_id2, _id1];
-		
+		show_debug_message("Looking for edge: " + string(_e1) + " or " + string(_e2));
 		//Loop through edge list to find one with matching pattern. Return -1 if can't find match
 		for (var _i = 0; _i<ds_list_size(self.edges); _i++) {
 			if (array_equals(self.edges[| _i], _e1) || array_equals(self.edges[| _i], _e2)) return _i;
@@ -141,33 +141,36 @@ function graph() constructor {
 		var _edge_index = self.getEdgeIndex(_id1, _id2);
 		if ( _edge_index < 0 ) return -1; //early out if can't find edge;
 		
+		show_debug_message("Found Graph Edge " + string(_id1) + ","+ string(_id2));
 		ds_list_delete(self.edges, _edge_index); //remove edge from graph struct.
 		
 		//Remove edge from both node structs.
 		var _id1_index = getNodeIndex(_id1);
 		var _id2_index = getNodeIndex(_id2);
 		
+		show_debug_message("Found Nodes " + string(_id1) + ","+ string(_id2));
+		show_debug_message("Index " + string(_id1_index) + ","+ string(_id2_index))
 		//If both nodes exist
 		if (_id1_index>=0 && _id2_index>=0) {
-			var _edge1_count = ds_list_size(self.nodes[| _id1].edges);
-			var _edge2_count = ds_list_size(self.nodes[| _id2].edges);
+			var _edge1_count = ds_list_size(self.nodes[| _id1_index].edges);
+			var _edge2_count = ds_list_size(self.nodes[| _id2_index].edges);
 			var _node_edge_index = -1;
 			
 			//loop through edges to find the matching edge
 			for (var _i = 0; _i < _edge1_count; _i++) {
-				if (self.nodes[| _id1].edges[| _i][0] == _id2) _node_edge_index = _i;
+				if (self.nodes[| _id1_index].edges[| _i][0] == _id2) _node_edge_index = _i;
 			}
 			
 			//delete the appropriate edge
-			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id1].edges, _node_edge_index);
+			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id1_index].edges, _node_edge_index);
 			
 			//loop through edges to find the matching edge
 			var _node_edge_index = -1;
 			for (var _i = 0; _i < _edge2_count; _i++) {
-				if (self.nodes[| _id2].edges[| _i][0] == _id1) _node_edge_index = _i;
+				if (self.nodes[| _id2_index].edges[| _i][0] == _id1) _node_edge_index = _i;
 			}
 			//delete the appropriate edge
-			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2].edges, _node_edge_index);
+			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2_index].edges, _node_edge_index);
 			
 			
 		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
@@ -186,16 +189,17 @@ function graph() constructor {
 		
 		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
 		
-		
+		show_debug_message(ds_list_size(self.nodes[| _node_index].edges));
 		//Delink all nodes from the node to be destroyed.
 		repeat(_edge_count) {
-			self.removeEdge(self.nodes[| _node_index].edges[| 0][0], _id)
+			show_debug_message(string(self.nodes[| _node_index].edges[| 0]));
+			a = self.removeEdge( _id, self.nodes[| _node_index].edges[| 0][0])
+			show_debug_message(string(a));
 		}
 		
 		//Destroy ds_list in the node to prevent memory leak.
 		ds_list_destroy(self.nodes[| _node_index].edges);
 		//Delete the node from the graph struct.
-		delete self.nodes[| _node_index];
 		ds_list_delete(self.nodes, _node_index);
 		
 		return 1;
@@ -235,6 +239,7 @@ function graph() constructor {
 			var _index1 = getNodeIndex(self.edges[| _j][0]);
 			var _index2 = getNodeIndex(self.edges[| _j][1]);
 			
+			//show_debug_message(string(self.edges[| _j][0]) + "," + string(self.edges[| _j][1]));
 			draw_line(self.nodes[| _index1].display_x + self.display_origin_x, self.nodes[|  _index1].display_y + self.display_origin_y, self.nodes[|  _index2].display_x + self.display_origin_x, self.nodes[|  _index2].display_y + self.display_origin_y);
 
 		}
