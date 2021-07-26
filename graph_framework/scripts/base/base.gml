@@ -195,6 +195,7 @@ function graph() constructor {
 		//Destroy ds_list in the node to prevent memory leak.
 		ds_list_destroy(self.nodes[| _node_index].edges);
 		//Delete the node from the graph struct.
+		delete self.nodes[| _node_index];
 		ds_list_delete(self.nodes, _node_index);
 		
 		return 1;
@@ -282,6 +283,17 @@ function graph() constructor {
 	}
 	
 
+	destroy = function() {
+		var _node_count = ds_list_size(self.nodes);
+		
+		repeat (_node_count) {
+			destroyNode(self.nodes[| 0]);
+		}
+		
+		ds_list_destroy(self.nodes);
+		ds_list_destroy(self.edges);
+		
+	}
 	
 }
 

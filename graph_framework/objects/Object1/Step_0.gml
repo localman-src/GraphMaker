@@ -6,4 +6,8 @@ if mouse_check_button_pressed(mb_left) {
 	
 }
 
-if keyboard_check_pressed(ord("R")) game_restart();
+if keyboard_check_pressed(ord("R")) {
+	myGraph.destroy();
+	delete myGraph;
+	game_restart();
+}
