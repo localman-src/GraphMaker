@@ -1,5 +1,5 @@
-## GML-Graph-Framework 
-### A WIP library for Creating and Manipulating 2D Graphs.
+## GraphMaker
+### A WIP library for Creating and Manipulating 2D Graphs in GameMaker Studio 2.
 
 #### Current Features
 1) Create Graphs
