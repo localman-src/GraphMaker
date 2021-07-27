@@ -5,16 +5,17 @@ show_debug_overlay(true);
 randomize();
 
 counter = 0;
-myGraph = newGraph(25).newNode().newEdge(25,0,0).updateAdjacency().setGraphDrawOrigin(room_width/2, room_height/2);
+myGraph = newGraph(25).updateAdjacency().setGraphDrawOrigin(room_width/2, room_height/2);
 
 simpleCircle(myGraph, 100);
 
-myGraph.tagNode(0, " ");
+myGraph.tagNode(0, "C");
 myGraph.tagNode(1, "1");
 myGraph.tagNode(2, "2");
 myGraph.tagNode(3, "3");
 myGraph.tagNode(4, "4");
 myGraph.tagNode(5, "A");
+myGraph.tagNode(6, "B");
 myGraph.tagNode(10, "B");
 myGraph.tagNode(15, "C");
 myGraph.tagNode(20, "D");
@@ -32,6 +33,6 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	//}
 
 
+find_pattern(myGraph, "A");
 
-
-
+rule_parser("0:A 1:B 2:C; ${0-1, 0-2} > 0:A 1:B 2:c; ${0-2-1}");
