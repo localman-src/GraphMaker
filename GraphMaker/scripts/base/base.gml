@@ -42,20 +42,6 @@ function graph() constructor {
 	}
 	
 	/**
-	 * @func			newNodeAtClick()
-	 * @desc			Creates a new node using self.newNode(), places it at the x and y coordinates of the mouse click
-	 */
-	newNodeAtClick = function() {
-		self.newNode();
-		
-		var _index = getNodeIndex(self.next_id - 1);
-		
-		self.nodes[| _index].display_x = mouse_x - self.display_origin_x; //This is does not feel like a good way to do this.
-		self.nodes[| _index].display_y = mouse_y - self.display_origin_y; //Need to figure out a better way to position nodes.
-		
-	}
-	
-	/**
 	 * @func			getNodeIndex(_id)
 	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
 	 * @param {real} _id		The ID of the node to get the index of.
