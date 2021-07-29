@@ -1,9 +1,10 @@
 {
   "resources": [
-    {"id":{"name":"base","path":"scripts/base/base.yy",},"order":0,},
+    {"id":{"name":"graph","path":"scripts/graph/graph.yy",},"order":1,},
     {"id":{"name":"layout","path":"scripts/layout/layout.yy",},"order":1,},
     {"id":{"name":"Object1","path":"objects/Object1/Object1.yy",},"order":0,},
     {"id":{"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy",},"order":0,},
+    {"id":{"name":"node","path":"scripts/node/node.yy",},"order":0,},
     {"id":{"name":"rewrite","path":"scripts/rewrite/rewrite.yy",},"order":3,},
     {"id":{"name":"creation","path":"scripts/creation/creation.yy",},"order":2,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
@@ -40,6 +41,7 @@
     {"folderPath":"folders/Notes.yy","order":13,"resourceVersion":"1.0","name":"Notes","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Extensions.yy","order":14,"resourceVersion":"1.0","name":"Extensions","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Scripts/libGraph.yy","order":1,"resourceVersion":"1.0","name":"libGraph","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/libGraph/database.yy","order":4,"resourceVersion":"1.0","name":"database","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},

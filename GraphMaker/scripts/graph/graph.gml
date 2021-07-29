@@ -1,17 +1,4 @@
-/**
- * @func			node()
- * @desc			Node constructor. Has a tag, display coordinates, and a list of edges.
- */
-function node() constructor {
-	self.node_id = 0;
-	self.edges = ds_list_create();
-	self.tag = "";
-	self.data = [];
-	
-	self.display_x = 0;
-	self.display_y = 0;
 
-}
 
 /**
  * @func			graph()
@@ -193,6 +180,25 @@ function graph() constructor {
 		return self;
 	}
 	
+	adjacent = function(_id1, _id2) {
+		var _edge = self.getEdgeIndex(_id1, _id2) >= 0 ? true : false;
+		
+		return _edge;
+	}
+	
+	neighbors = function(_id) {
+		
+		var _node_index = self.getNodeIndex(_id);
+		var _node_edges = ds_list_size(self.nodes[| _node_index].edges);
+		var _neighbor_ids = ds_list_create();
+		
+		for (var _i = 0; _i <_node_edges; _i++) {
+			ds_list_add(_neighbor_ids, (self.nodes[| _node_index].edges[| _i][0]));
+		}
+		
+		return _neighbor_ids;
+	}
+	
 	/**
 	 * @func			setGraphDrawOrigin(_x, _y)
 	 * @desc			Sets the display origin point for the graph.
@@ -256,26 +262,6 @@ function graph() constructor {
 	return ds_list_size(self.edges);	
 		
 	}
-	
-	/**
-	 * @func			updateAdjacency()
-	 * @desc			Updates the adjacency matrix for the graph based on all current edges. Could be faster if I knew how to only loop through above the diagonal.
-	 */
-	updateAdjacency = function() {
-		for (var _i = 0; _i < ds_list_size(self.nodes); _i++) {
-			for (var _j = 0; _j < ds_list_size(self.nodes); _j++) {
-				var _e = getEdgeIndex(_i, _j);
-				
-				if ( _e >= 0 ) {
-					self.adjacency[_i, _j] = 1;
-					self.adjacency[_j, _i] = 1;
-				} else self.adjacency[_i, _j] = 0;
-			}
-			
-		}
-		return self;
-	}
-	
 
 	destroy = function() {
 		var _node_count = ds_list_size(self.nodes);

@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "libGraph",
-    "path": "folders/Scripts/libGraph.yy",
+    "name": "database",
+    "path": "folders/Scripts/libGraph/database.yy",
   },
   "resourceVersion": "1.0",
-  "name": "base",
+  "name": "node",
   "tags": [],
   "resourceType": "GMScript",
 }
