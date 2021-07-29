@@ -18,13 +18,14 @@ function graph() constructor {
 	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
 	 */
 	newNode = function() {
-		var _i = new node();
+		var _i = new node(); //New Node struct
+		_i.node_id = self.next_id; //Set Unique ID
+		self.next_id++; //Increment ID for next node
+		_i.graph_id = self; //Point node to graph object.
 		
-		_i.node_id = self.next_id;
-		self.next_id++;
-		ds_list_add(self.nodes, _i);
+		ds_list_add(self.nodes, _i); //Add the struct to the node.
 		
-		return self;
+		return self; //Return Self for fluent interface.
 		
 	}
 	
@@ -33,11 +34,12 @@ function graph() constructor {
 	 * @desc			Takes a node ID and returns the index of it from the graphs self.nodes list.
 	 * @param {real} _id		The ID of the node to get the index of.
 	 */
-	getNodeIndex = function(_id) {
+	getNode = function(_id) {
+		
 		var _node_count = ds_list_size(self.nodes);
 		//Loop through node list to find one with matching ID return -1 if can't find match
 		for (var _i = 0; _i<_node_count; _i++) {
-			if (self.nodes[| _i].node_id == _id) return _i;
+			if (self.nodes[| _i].node_id == _id) return self.nodes[| _i];
 		}
 		return -1;
 		
@@ -50,13 +52,13 @@ function graph() constructor {
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
 	tagNode = function(_id, _tag) {
-		var _id_index = getNodeIndex(_id);
-		
+			var _node = self.getNode(_id);
+			
 			//update tag of the given node if it exists
-			if (_id_index>=0) {
-				self.nodes[| _id_index].tag = _tag;
+			if (is_struct(_node)) {
+				_node.tag = _tag;
 			} else {
-				show_debug_message("id exists: " + string(_id_index));
+				show_debug_message("Node Does Not Exist");
 				return -1;
 			}
 		
@@ -70,18 +72,18 @@ function graph() constructor {
 	 * @param {real} _type		Type of connection (0, undirected, 1 directed from id1 to id2, -1 directed from id2 to id1).
 	 */
 	newEdge = function(_id1, _id2, _type) {
-		var _id1_index = getNodeIndex(_id1);
-		var _id2_index = getNodeIndex(_id2);
+		var _node_1 = getNode(_id1);
+		var _node_2 = getNode(_id2);
 		
 		//If both nodes exist add an edge to each of their edge lists
 		//If one or both don't exist return -1
-		if (_id1_index>=0 && _id2_index>=0) {
+		if (is_struct(_node_1) && is_struct(_node_2)) {
 			ds_list_add(self.edges, [_id1, _id2]);
-			ds_list_add(self.nodes[| _id1_index].edges, [_id2, _type])
-			ds_list_add(self.nodes[| _id2_index].edges, [_id1, _type * -1])
+			ds_list_add(_node_1.edges, [_id2, _type])
+			ds_list_add(_node_2.edges, [_id1, _type * -1])
 			
 		} else {
-			show_debug_message("id1 exists: " + string(_id1_index) +"\nid2 exists: " + string(_id2_index))
+			show_debug_message("id1 exists: " + string(_node_1) +"\nid2 exists: " + string(_node_2))
 			return -1;
 		}
 		
@@ -188,15 +190,15 @@ function graph() constructor {
 	
 	neighbors = function(_id) {
 		
-		var _node_index = self.getNodeIndex(_id);
-		var _node_edges = ds_list_size(self.nodes[| _node_index].edges);
-		var _neighbor_ids = ds_list_create();
+		var _node = self.getNode(_id);
+		var _node_edges = ds_list_size(_node.edges);
+		var _neighbors = ds_list_create();
 		
 		for (var _i = 0; _i <_node_edges; _i++) {
-			ds_list_add(_neighbor_ids, (self.nodes[| _node_index].edges[| _i][0]));
+			ds_list_add(_neighbors, (self.getNode(_node.edges[| _i][0])));
 		}
 		
-		return _neighbor_ids;
+		return _neighbors;
 	}
 	
 	/**
@@ -231,11 +233,11 @@ function graph() constructor {
 		
 		//Draw Edges
 		for (var _j = 0; _j<_edge_count; _j++) {
-			var _index1 = getNodeIndex(self.edges[| _j][0]);
-			var _index2 = getNodeIndex(self.edges[| _j][1]);
+			var _node_1 = getNode(self.edges[| _j][0]);
+			var _node_2 = getNode(self.edges[| _j][1]);
 			
 			//show_debug_message(string(self.edges[| _j][0]) + "," + string(self.edges[| _j][1]));
-			draw_line(self.nodes[| _index1].display_x + self.display_origin_x, self.nodes[|  _index1].display_y + self.display_origin_y, self.nodes[|  _index2].display_x + self.display_origin_x, self.nodes[|  _index2].display_y + self.display_origin_y);
+			draw_line(_node_1.display_x + self.display_origin_x, _node_1.display_y + self.display_origin_y,  _node_2.display_x + self.display_origin_x, _node_2.display_y + self.display_origin_y);
 
 		}
 		

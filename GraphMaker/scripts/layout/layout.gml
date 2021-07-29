@@ -98,10 +98,12 @@ function force_directed(_graph, _steps, _crep, _cspr, _distance_scale, _preferre
 		
 			//Attractive Force from Edges
 			for (var _j = 0; _j < _edge_count; _j++) {
-				var _node_index = _graph.getNodeIndex(_graph.nodes[| _i].edges[| _j][0]);
-				//Calculate direction and distance fromconnected node.
-				var _ijdir = point_direction(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _node_index].display_x, _graph.nodes[| _node_index].display_y);
-				var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _graph.nodes[| _node_index].display_x, _graph.nodes[| _node_index].display_y);
+				//Get the Node on the Other Edge
+				var _node_atr = _graph.getNode(_graph.nodes[| _i].edges[| _j][0]);
+				
+				//Calculate direction and distance from connected node.
+				var _ijdir = point_direction(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _node_atr.display_x, _node_atr.display_y);
+				var _ijdis = point_distance(_graph.nodes[| _i].display_x, _graph.nodes[| _i].display_y, _node_atr.display_x, _node_atr.display_y);
 				
 				show_debug_message(string(_ijdir));
 				

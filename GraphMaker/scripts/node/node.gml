@@ -3,13 +3,29 @@
  * @desc			Node constructor. Has a tag, data, display coordinates, and a list of edges.
  */
 function node() constructor {
-	self.node_id = 0;
-	self.edges = ds_list_create();
-	self.tag = "";
-	self.data = [];
+	//Node Attributes
+	self.graph_id = 0; //Point to the graph the node belongs to.
+	self.node_id = 0; // Unique ID of the node in the graph.
+	self.edges = ds_list_create(); //DS List of edge values, format [ {real} id, {real} type]
+	self.tag = ""; //String that the node is tagged with
+	self.data = []; //Any data carried by the node.
 	
+	
+	//Display Attributes
 	self.display_x = 0;
 	self.display_y = 0;
 	
+	
+	index = function() {
+		var _node_list = self.graph_id.nodes; //GML Quirk, points _node_list at self.graph_id.nodes;
+		var _node_count = ds_list_size(_node_list);
+		
+		//Loop through node list to find one with matching ID return -1 if can't find match
+		for (var _i = 0; _i<_node_count; _i++) {
+			if (_node_list[| _i].node_id == self.node_id) return _i;
+		}
+		return -1;
+
+	}
 
 }

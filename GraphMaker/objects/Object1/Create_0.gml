@@ -9,6 +9,8 @@ myGraph = newGraph(25).setGraphDrawOrigin(room_width/2, room_height/2);
 
 simpleCircle(myGraph, 100);
 
+show_debug_message(string(myGraph.getNode(5).index()));
+
 myGraph.tagNode(0, "C");
 myGraph.tagNode(1, "1");
 myGraph.tagNode(2, "2");
@@ -34,8 +36,10 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	//}
 
 
-find_pattern(myGraph, "B");
+//find_pattern(myGraph, "B");
 
 //rule_parser("0:A 1:B 2:C; ${0-1, 0-2} > 0:A 1:B 2:c; ${0-2-1}");
 
+//show_debug_message(string(myGraph));
+show_debug_message(string(myGraph.getNode(5).index()));
 
