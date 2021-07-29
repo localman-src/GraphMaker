@@ -27,5 +27,18 @@ function node() constructor {
 		return -1;
 
 	}
+	
+	//Returns a list of all adjacent nodes.
+	neighbors = function() {
+		
+		var _edge_count = ds_list_size(self.edges);
+		var _neighbors = ds_list_create();
+		
+		for (var _i = 0; _i <_edge_count; _i++) {
+			ds_list_add(_neighbors, (self.graph_id.getNode(self.edges[| _i][0])));
+		}
+		
+		return _neighbors;
+	}
 
 }

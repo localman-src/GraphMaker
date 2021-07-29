@@ -7,9 +7,7 @@ randomize();
 counter = 0;
 myGraph = newGraph(25).setGraphDrawOrigin(room_width/2, room_height/2);
 
-simpleCircle(myGraph, 100);
-
-show_debug_message(string(myGraph.getNode(5).index()));
+simpleGrid(myGraph, 5);
 
 myGraph.tagNode(0, "C");
 myGraph.tagNode(1, "1");
@@ -43,3 +41,6 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 //show_debug_message(string(myGraph));
 show_debug_message(string(myGraph.getNode(5).index()));
 
+show_debug_message(string(ds_list_size(myGraph.getNode(6).neighbors())));
+
+find_pattern(myGraph, "A");

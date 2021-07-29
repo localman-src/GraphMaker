@@ -3,19 +3,15 @@
  *  @param {string} pattern		The string representing the pattern to find inside the graph.
  */
 function find_pattern(_graph, _pattern) {
-	var _global_search_space = ds_list_create();
-	var _narrow_search_space = ds_list_create();
-	var _node_count = ds_list_size(_graph.nodes);
-	for (var _i = 0; _i < _node_count; _i++) {
-		ds_list_add(_global_search_space, _graph.nodes[| _i].node_id);
-	}
-	
-	//Tag Array formatted as:
+	var _global_search_space = _graph.nodes;
+	var _local_search_space = ds_list_create();
+	var _global_node_count = ds_list_size(_global_search_space);
+
+	//Conditional Array formatted as:
 	//_tag_array[Node Number 1][Node Tag, Neighbor Tag 1, Neighbor Tag 2 ... Neighbor Tag N]
 	//_tag_array[Node Number 2][Node Tag, Neighbor Tag 1, Neighbor Tag 2 ... Neighbor Tag N]
 	//_tag_array[    ...      ][                         ...                               ]
 	//_tag_array[Node Number N][Node Tag, Neighbor Tag 1, Neighbor Tag 2 ... Neighbor Tag N]
-	
 	
 	var _tag_array = [];
 	_tag_array[0][0] = "A";
@@ -25,69 +21,44 @@ function find_pattern(_graph, _pattern) {
 	var _condition_count = array_length(_tag_array);
 	var _match_array = [];
 	
+	//For Every Condition
 	for (var _i = 0; _i < _condition_count; _i++) {
-		for (var _n = 0; _n < array_length(_tag_array[_i]); _n++) {
-			ds_list_copy(_narrow_search_space, match_node_tag(_graph, _global_search_space, _tag_array[0][_n]));
-			
-			var _neighbors = ds_list_create()
-			
-			for (var _j = 0; _j < ds_list_size(_narrow_search_space); _j++) {
-			//show_debug_message("Searching For Neighbors of " + string(_narrow_search_space[| _j]));
-			_match_array[_i][_j][0] = _narrow_search_space[| _j];
-			_match_array[_i][_j][1] = _graph.neighbors(_narrow_search_space[| _j]);
-	
-			}
-			
-			for (var _j = 0; _j<array_length(_match_array[_i]); _j++) {
+		var _condition_length = array_length(_tag_array[_i]); //How many Conditions the _ith node must match.
 		
-				var _match_length = ds_list_size(_match_array[_i][_j][1]);
-				show_debug_message("Found Neighbors of " + string(_match_array[_i][_j][0]) + " at:");
-	
-				for (var _k = 0; _k<_match_length; _k++) {
-					show_debug_message(string(_match_array[_i][_j][1][| _k]));
-				}
+		_match_array[_i][0] = match_node_tag(_global_search_space, "A"); //All nodes matching the _ith node tag
+		
+		var _match_count = ds_list_size(_match_array[_i][0]); //How many matches for the _ith node tag.
+		var _match_neighbors = array_create(ds_list_size(_match_array[_i][0])); //Array to hold the neighbors for each match
+		
+		for (var _j = 1; _j < _condition_length; _j++) { //For each condition
+			show_debug_message("condition loop " + string(_j));
+			for (var _k = 0; _k < _match_count; _k++) { //For each match
+				_match_neighbors[_k] = match_node_tag(_match_array[_i][0][| _k].neighbors(), _tag_array[0][_j]) //Get all neighbor nodes that match the tag condition
+				
+				_match_array[0][_j] = _match_neighbors[@ _k]; //Store match neighbors in the match array
 			}
+			
+			
+		
 		}
 	}
-
+	
+	show_debug_message("#Nodes Matching " + string(_tag_array[0][0]) + ": " + string(ds_list_size(_match_array[0][0])));
+	show_debug_message("#Nodes Matching " + string(_tag_array[0][1]) + " adjacent to " + string(_tag_array[0][0]) + ": " + string(ds_list_size(_match_array[0][1])));
+	show_debug_message("#Nodes Matching " + string(_tag_array[0][2]) + " adjacent to " + string(_tag_array[0][0]) + ": " + string(ds_list_size(_match_array[0][2])));
+	
+	return _match_array;
 }
 
-function match_node_tag(_graph, _node_ids, _tag) {
-	var _node_count = ds_list_size(_node_ids);
+
+function match_node_tag(_nodes, _tag) {
+	var _node_count = ds_list_size(_nodes);
 	var _node_matches = ds_list_create();
 	
-	for ( var _i = 0; _i < _node_count; _i++ ) {
-			var _node_index = _graph.getNodeIndex(_node_ids[| _i]);
-			if ( _graph.nodes[| _node_index].tag == _tag ) {
-				ds_list_add(_node_matches, _graph.nodes[| _i].node_id);
-				if (ds_list_size(_node_matches)>0) show_debug_message("Match for " + string(_tag) + " Found At Node ID: " + string(_node_matches[| ds_list_size(_node_matches)-1]));
-			}
-		}
-	
-	return _node_matches;
-}
-
-function match_edge_tag(_graph, _node_ids, _tag) {
-	var _node_count = ds_list_size(_node_ids);
-	var _edge_matches = ds_list_create();
-	
-	for ( var _i = 0; _i < _node_count; _i++ ) {
-		var _node_index = _graph.getNodeIndex(_node_ids[| _i]);
-		var _edge_count = ds_list_size(_graph.nodes[| _node_index].edges);
-		
-		for ( var _j = 0; _j < _edge_count; _j ++) {
-			var _node_at_edge = _graph.nodes[| _node_index].edges[| _j][0];
-			var _node_at_edge_index = _graph.getNodeIndex(_node_at_edge);
-			
-			if ( _graph.nodes[| _node_at_edge_index].tag == _tag ) {
-				ds_list_add(_edge_matches, [ _graph.nodes[| _node_index].node_id, _graph.nodes[| _node_at_edge_index].node_id]);
-				if (ds_list_size(_edge_matches)>0) show_debug_message("Match for " + string(_tag) + " Found At Edge IDs: " + string(_edge_matches[| ds_list_size(_edge_matches)-1]));
-			}
-		
-		}
-		if (ds_list_size(_edge_matches)<=0) show_debug_message("No Matches Found for: " + string(_tag) + " from " + string(_node_ids[| _i]));
+	for (var _i = 0; _i < _node_count; _i++) {
+		if (_nodes[| _i].tag == _tag) ds_list_add(_node_matches, _nodes[| _i]);
 	}
-	return _edge_matches;
+	return _node_matches;
 }
 
 

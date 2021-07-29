@@ -83,7 +83,7 @@ function graph() constructor {
 			ds_list_add(_node_2.edges, [_id1, _type * -1])
 			
 		} else {
-			show_debug_message("id1 exists: " + string(_node_1) +"\nid2 exists: " + string(_node_2))
+			show_debug_message(string(_id1) + " exists: " + string(is_struct(_node_1)) +"\n" + string(_id2) + " exists: " + string(is_struct(_node_2)));
 			return -1;
 		}
 		
@@ -123,32 +123,32 @@ function graph() constructor {
 		ds_list_delete(self.edges, _edge_index); //remove edge from graph struct.
 		
 		//Remove edge from both node structs.
-		var _id1_index = getNodeIndex(_id1);
-		var _id2_index = getNodeIndex(_id2);
+		var _node_1 = getNode(_id1);
+		var _node_2 = getNode(_id2);
 		
 		show_debug_message("Found Nodes " + string(_id1) + ","+ string(_id2));
-		show_debug_message("Index " + string(_id1_index) + ","+ string(_id2_index))
+		show_debug_message("Index " + string(_node_1.index()) + ","+ string(_node_2.index()))
 		//If both nodes exist
-		if (_id1_index>=0 && _id2_index>=0) {
-			var _edge1_count = ds_list_size(self.nodes[| _id1_index].edges);
-			var _edge2_count = ds_list_size(self.nodes[| _id2_index].edges);
+		if (is_struct(_node_1) && is_struct(_node_2)) {
+			var _edge1_count = ds_list_size(_node_1.edges);
+			var _edge2_count = ds_list_size(_node_2.edges);
 			var _node_edge_index = -1;
 			
 			//loop through edges to find the matching edge
 			for (var _i = 0; _i < _edge1_count; _i++) {
-				if (self.nodes[| _id1_index].edges[| _i][0] == _id2) _node_edge_index = _i;
+				if (_node_1.edges[| _i][0] == _id2) _node_edge_index = _i;
 			}
 			
 			//delete the appropriate edge
-			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id1_index].edges, _node_edge_index);
+			if (_node_edge_index > -1) ds_list_delete(_node_1.edges, _node_edge_index);
 			
 			//loop through edges to find the matching edge
 			var _node_edge_index = -1;
 			for (var _i = 0; _i < _edge2_count; _i++) {
-				if (self.nodes[| _id2_index].edges[| _i][0] == _id1) _node_edge_index = _i;
+				if (_node_2.edges[| _i][0] == _id1) _node_edge_index = _i;
 			}
 			//delete the appropriate edge
-			if (_node_edge_index > -1) ds_list_delete(self.nodes[| _id2_index].edges, _node_edge_index);
+			if (_node_edge_index > -1) ds_list_delete(_node_2.edges, _node_edge_index);
 			
 			return self;
 		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
@@ -162,43 +162,31 @@ function graph() constructor {
 	 * @param {real} _id		The id of the node to be destroyed.
 	 */
 	destroyNode = function(_id) {
-		var _node_index = getNodeIndex(_id);
-		if (_node_index < 0) return -1; // Early out if requested node doesn't exist.
+		var _node = getNode(_id);
+		if (!is_struct(_node)) return -1; // Early out if requested node doesn't exist.
 		
-		var _edge_count = ds_list_size(self.nodes[| _node_index].edges);
+		var _edge_count = ds_list_size(_node.edges);
 		
 		//Delink all nodes from the node to be destroyed.
 		repeat(_edge_count) {
-			show_debug_message(string(self.nodes[| _node_index].edges[| 0]));
-			a = self.removeEdge( _id, self.nodes[| _node_index].edges[| 0][0])
+			show_debug_message(string(_node.edges[| 0]));
+			a = self.removeEdge( _id, _node.edges[| 0][0])
 			show_debug_message(string(a));
 		}
 		
 		//Destroy ds_list in the node to prevent memory leak.
-		ds_list_destroy(self.nodes[| _node_index].edges);
+		ds_list_destroy(_node.edges);
 		//Delete the node from the graph struct.
-		ds_list_delete(self.nodes, _node_index);
+		ds_list_delete(self.nodes, _node.index());
 		
 		return self;
 	}
 	
+	//Returns true if an edge exists between the IDs, false if not.
 	adjacent = function(_id1, _id2) {
 		var _edge = self.getEdgeIndex(_id1, _id2) >= 0 ? true : false;
 		
 		return _edge;
-	}
-	
-	neighbors = function(_id) {
-		
-		var _node = self.getNode(_id);
-		var _node_edges = ds_list_size(_node.edges);
-		var _neighbors = ds_list_create();
-		
-		for (var _i = 0; _i <_node_edges; _i++) {
-			ds_list_add(_neighbors, (self.getNode(_node.edges[| _i][0])));
-		}
-		
-		return _neighbors;
 	}
 	
 	/**
