@@ -17,6 +17,7 @@ myGraph.tagNode(4, "4");
 myGraph.tagNode(5, "A");
 myGraph.tagNode(6, "B");
 myGraph.tagNode(10, "B");
+myGraph.tagNode(11, "A");
 myGraph.tagNode(15, "C");
 myGraph.tagNode(20, "D");
 
@@ -39,8 +40,12 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 //rule_parser("0:A 1:B 2:C; ${0-1, 0-2} > 0:A 1:B 2:c; ${0-2-1}");
 
 //show_debug_message(string(myGraph));
-show_debug_message(string(myGraph.getNode(5).index()));
+//show_debug_message(string(myGraph.getNode(5).index()));
 
-show_debug_message(string(ds_list_size(myGraph.getNode(6).neighbors())));
+show_debug_message(string(ds_list_size(simple_find(myGraph.nodes, ["A", "B"]))));
 
-find_pattern(myGraph, "A");
+a = find(myGraph.nodes, [ "A", "B", "C"]);
+
+show_debug_message(string(ds_list_size(a)));
+//test = find_pattern(myGraph, "A");
+

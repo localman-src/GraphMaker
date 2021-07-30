@@ -40,5 +40,22 @@ function node() constructor {
 		
 		return _neighbors;
 	}
+	
+	tagEquals = function(_tag) {
+		var _has_tag = self.tag == _tag ? true : false ;
+		return _has_tag
+	}
+	
+	neighborTagEquals = function(_tag) {
+		var _neighbors = self.neighbors();
+		var _neighbor_count = ds_list_size(_neighbors);
+		var _neighbors_matching_tag = ds_list_create();
+		
+		for (var _i = 0; _i < _neighbor_count; _i++) {
+			if (_neighbors[| _i].tagEquals(_tag)) ds_list_add(_neighbors_matching_tag, _neighbors[| _i]);
+		}
+		
+		return _neighbors_matching_tag;
+	}
 
 }
