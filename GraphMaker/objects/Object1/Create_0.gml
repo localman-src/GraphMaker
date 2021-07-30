@@ -44,8 +44,8 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 
 show_debug_message(string(ds_list_size(simple_find(myGraph.nodes, ["A", "B"]))));
 
-a = find(myGraph.nodes, [ "A", "B", "C"]);
+a = find(myGraph.nodes, [ "A", "B", "C" ]);
 
 show_debug_message(string(ds_list_size(a)));
-//test = find_pattern(myGraph, "A");
+
 

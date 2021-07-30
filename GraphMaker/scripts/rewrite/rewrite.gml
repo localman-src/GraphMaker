@@ -1,3 +1,23 @@
+/** @func			find(_node_list, _tag_array)
+ *  @desc			Returns all nodes matching the _tag parameter.
+ *  @param {struct} nodes		The search space of nodes for the given tag condition array.
+ *  @param {string} tag			The tag to search for in the node list.
+ */
+function match_node_tag(_nodes, _tag) {
+	var _node_count = ds_list_size(_nodes);
+	var _node_matches = ds_list_create();
+	
+	for (var _i = 0; _i < _node_count; _i++) {
+		if (_nodes[| _i].tag == _tag) ds_list_add(_node_matches, _nodes[| _i]);
+	}
+	return _node_matches;
+}
+
+/** @func			find(_node_list, _tag_array)
+ *  @desc			Returns all nodes with the size 2 tag pattern defined [ "A", "B" ].
+ *  @param {struct} nodes		The search space of nodes for the given tag condition array.
+ *  @param {string} tag_array	The tag pattern to search for in the node list.
+ */
 function simple_find(_node_list, _tag_array) {
 	var _node_count = ds_list_size(_node_list);
 	var _node_matches = ds_list_create();
@@ -13,6 +33,7 @@ function simple_find(_node_list, _tag_array) {
 }
 
 /** @func			find(_node_list, _tag_array)
+ *  @desc			Returns all nodes with an arbitrary size tag pattern [ "A", "B", ... ].
  *  @param {struct} node_list	The search space of nodes for the given tag condition array.
  *  @param {string} tag_array	The tag pattern to search for in the node list.
  */
@@ -34,6 +55,11 @@ function find(_node_list, _tag_array) {
 		show_debug_message("tag array size: " + string(array_length(_tag_array)));
 		show_debug_message("search space size: " + string(ds_list_size(_node_list)));
 		return simple_find(_node_list, _tag_array);
+	}
+	
+	if array_length(_tag_array)==1 {
+	return match_node_tag(_node_list, _tag_array[0]);
+	
 	}
 }
 
@@ -99,14 +125,5 @@ function find_pattern(_graph, _pattern) {
 }
 
 
-function match_node_tag(_nodes, _tag) {
-	var _node_count = ds_list_size(_nodes);
-	var _node_matches = ds_list_create();
-	
-	for (var _i = 0; _i < _node_count; _i++) {
-		if (_nodes[| _i].tag == _tag) ds_list_add(_node_matches, _nodes[| _i]);
-	}
-	return _node_matches;
-}
 
 
