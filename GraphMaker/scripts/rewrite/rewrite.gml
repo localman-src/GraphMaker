@@ -1,9 +1,9 @@
 /** @func			find(_node_list, _tag_array)
  *  @desc			Returns all nodes matching the _tag parameter.
- *  @param {struct} nodes		The search space of nodes for the given tag condition array.
+ *  @param {struct} nodes		A ds_list of node structs to search
  *  @param {string} tag			The tag to search for in the node list.
  */
-function match_node_tag(_nodes, _tag) {
+function match_tag(_nodes, _tag) {
 	var _node_count = ds_list_size(_nodes);
 	var _node_matches = ds_list_create();
 	
@@ -13,9 +13,9 @@ function match_node_tag(_nodes, _tag) {
 	return _node_matches;
 }
 
-/** @func			find(_node_list, _tag_array)
- *  @desc			Returns all nodes with the size 2 tag pattern defined [ "A", "B" ].
- *  @param {struct} nodes		The search space of nodes for the given tag condition array.
+/** @func			simple_find(_node_list, _tag_array)
+ *  @desc			Returns all nodes in a pattern such that tag_array[0] is adjacent to tag_array[1] format: [ "A", "B" ].
+ *  @param {struct} node_list	A ds_list of node structs to search
  *  @param {string} tag_array	The tag pattern to search for in the node list.
  */
 function simple_find(_node_list, _tag_array) {
@@ -33,34 +33,33 @@ function simple_find(_node_list, _tag_array) {
 }
 
 /** @func			find(_node_list, _tag_array)
- *  @desc			Returns all nodes with an arbitrary size tag pattern [ "A", "B", ... ].
- *  @param {struct} node_list	The search space of nodes for the given tag condition array.
+ *  @desc			Returns all nodes in an arbitrary size tag pattern such that tag_array[0] is adjacent to all tag_array[n], format: [ "A", "B", ... ].
+ *  @param {struct} node_list	A ds_list of node structs to search
  *  @param {string} tag_array	The tag pattern to search for in the node list.
  */
 function find(_node_list, _tag_array) {
 	
-	if (ds_list_size(_node_list)<1) return -1; //If no results return -1.
+	//Early Out
+	if (ds_list_size(_node_list)<1) return ds_list_create(); //Return empty list if no results.
 	
+	//Recursive Call
 	if array_length(_tag_array)>2 { //If more than 2 conditions remaining
-		show_debug_message("tag array size: " + string(array_length(_tag_array)));
-		show_debug_message("search space size: " + string(ds_list_size(_node_list)));
-		
 		var _a = array_pop(_tag_array); //Get the last condition in the array.
-		var _b = simple_find(_node_list, [ _tag_array[0], _a]); //run the match list between the first and last conditions
+		var _b = simple_find(_node_list, [ _tag_array[0], _a]); //return the nodes that meet the first and last conditions
 		
 		return find(_b, _tag_array); //Recursive call with the updated match list and conditions.
 	}
 	
+	//Base Case
 	if array_length(_tag_array)==2 {
-		show_debug_message("tag array size: " + string(array_length(_tag_array)));
-		show_debug_message("search space size: " + string(ds_list_size(_node_list)));
-		return simple_find(_node_list, _tag_array);
+		return simple_find(_node_list, _tag_array); //If only 2 conditions return the nodes that meet these conditions
 	}
 	
-	if array_length(_tag_array)==1 {
-	return match_node_tag(_node_list, _tag_array[0]);
-	
+	//Extra Functionality
+	if array_length(_tag_array)==1 { //If only supplied one condition return all nodes tagged with that condition.
+	return match_tag(_node_list, _tag_array[0]);
 	}
+	
 }
 
 
