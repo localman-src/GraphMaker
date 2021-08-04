@@ -133,7 +133,10 @@ function dijkstras(_graph, _s) {
 			
 		}
 		
+		ds_list_destroy(_neighbors);
 	}
+	
+	ds_priority_destroy(_pq);
 	return [ _dist, _prev ]
 	
 }
