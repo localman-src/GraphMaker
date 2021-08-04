@@ -43,7 +43,7 @@ function node() constructor {
 	
 	tagEquals = function(_tag) {
 		var _has_tag = self.tag == _tag ? true : false ;
-		return _has_tag
+		return _has_tag;
 	}
 	
 	neighborTagEquals = function(_tag) {
@@ -56,6 +56,18 @@ function node() constructor {
 		}
 		
 		return _neighbors_matching_tag;
+	}
+	
+	isAdjacentTo = function(_node) {
+		var _neighbors = self.neighbors();
+		var _neighbor_count = ds_list_size(_neighbors);
+		var _is_neighbor = false;
+		
+		for (var _i = 0; _i <_neighbor_count; _i++) {
+			_is_neighbor = (_node == _neighbors[| _i]) ? true : _is_neighbor;	
+		}
+		
+		return _is_neighbor;
 	}
 
 }

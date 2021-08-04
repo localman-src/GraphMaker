@@ -8,7 +8,6 @@ function graph() constructor {
 	self.nodes = ds_list_create();
 	self.edges = ds_list_create();
 	self.next_id = 0;
-	self.adjacency = 0;
 	
 	self.display_origin_x = 0;
 	self.display_origin_y = 0;
@@ -180,13 +179,6 @@ function graph() constructor {
 		ds_list_delete(self.nodes, _node.index());
 		
 		return self;
-	}
-	
-	//Returns true if an edge exists between the IDs, false if not.
-	adjacent = function(_id1, _id2) {
-		var _edge = self.getEdgeIndex(_id1, _id2) >= 0 ? true : false;
-		
-		return _edge;
 	}
 	
 	/**

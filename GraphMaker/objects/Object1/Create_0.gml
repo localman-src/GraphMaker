@@ -46,10 +46,8 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 //show_debug_message(string(myGraph));
 //show_debug_message(string(myGraph.getNode(5).index()));
 
-show_debug_message(string(ds_list_size(simple_find(myGraph.nodes, ["A", "B"]))));
 
-a = find(myGraph.nodes, [ "A", "B", "C", "D", "E", "F"]);
 
-show_debug_message(string(ds_list_size(a)));
 
+dijkstras(myGraph, 0);
 
