@@ -4,14 +4,16 @@
 #### Current Features
 1) Create Graphs
 2) Add/Remove Nodes and Edges
-3) Tag Nodes
+3) Tag/Label Nodes
 4) Circle/Grid Layout
 5) Spring Embedded Layout
+6) Priority Queue Dijkstra's Algorithm
+7) Find Nodes with Arbitrary Number of Label Patterns
 
 #### Planned Features
 1) Simple Tree Layout
-2) Find
-3) Replace
+2) Replace
+3) Relationships
 
 
 ### Structure
