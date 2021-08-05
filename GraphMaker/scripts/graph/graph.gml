@@ -17,14 +17,14 @@ function graph() constructor {
 	 * @desc			Creates a new node, gives it an ID, increments the ID counter.
 	 */
 	newNode = function() {
-		var _i = new node(); //New Node struct
+		var _i = new node();
 		_i.node_id = self.next_id; //Set Unique ID
 		self.next_id++; //Increment ID for next node
 		_i.graph_id = self; //Point node to graph object.
 		
-		ds_list_add(self.nodes, _i); //Add the struct to the node.
+		ds_list_add(self.nodes, _i);
 		
-		return self; //Return Self for fluent interface.
+		return self;
 		
 	}
 	
@@ -150,8 +150,9 @@ function graph() constructor {
 			if (_node_edge_index > -1) ds_list_delete(_node_2.edges, _node_edge_index);
 			
 			return self;
-		} else return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
-					// Most likely something extremely broken happening if this result is returned.
+		} else {
+			return -2; // Return Error if nodes don't exist. This error state signifies that something has desynced the graph's edge list from the nodes'
+		}		// Most likely something extremely broken happening if this result is returned.
 		
 	}
 	
