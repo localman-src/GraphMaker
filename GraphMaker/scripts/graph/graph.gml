@@ -51,15 +51,15 @@ function graph() constructor {
 	 * @param {string} _tag		The tag to apply to the node.
 	 */
 	tagNode = function(_id, _tag) {
-			var _node = self.getNode(_id);
+		var _node = self.getNode(_id);
 			
-			//update tag of the given node if it exists
-			if (is_struct(_node)) {
-				_node.tag = _tag;
-			} else {
-				show_debug_message("Node Does Not Exist");
-				return -1;
-			}
+		//update tag of the given node if it exists
+		if (is_struct(_node)) {
+			_node.tag = _tag;
+		} else {
+			show_debug_message("Node Does Not Exist");
+			return -1;
+		}
 		
 	}
 	
