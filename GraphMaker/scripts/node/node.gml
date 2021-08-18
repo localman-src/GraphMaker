@@ -7,6 +7,8 @@ function node() constructor {
 	self.graph_id = 0; //Point to the graph the node belongs to.
 	self.node_id = 0; // Unique ID of the node in the graph.
 	self.edges = ds_list_create(); //DS List of edge values, format [ {real} id, {real} type]
+	self.relationships = ds_map_create(); //Non-edge relationships between nodes
+	
 	self.tag = ""; //String that the node is tagged with
 	self.data = []; //Any data carried by the node.
 	
@@ -71,3 +73,4 @@ function node() constructor {
 	}
 
 }
+

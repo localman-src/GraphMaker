@@ -62,40 +62,6 @@ function find(_node_list, _tag_array) {
 	
 }
 
-function BFT(_graph, _s, _g) {
-	var _goal = !is_undefined(_g) ? myGraph.getNode(_g) : undefined;
-	
-	var _node_count = ds_list_size(_graph.nodes);
-	var _visited = array_create(_node_count);
-	
-	for ( var _i = 0; _i < _node_count; _i++ ) {
-		_visited[_i] = false;
-	}
-	
-	var _nq = ds_queue_create();
-	_visited[myGraph.getNode(_s).index()] = true;
-	ds_queue_enqueue(_nq, myGraph.getNode(_s));
-	
-	while(!ds_queue_empty(_nq)) {
-		var _node = ds_queue_dequeue(_nq);
-		show_debug_message(_node.index());
-		
-		if ( !is_undefined(_goal) && ( _node == _goal ) ) return _node;
-		var _neighbors = _node.neighbors();
-		var _neighbor_count = ds_list_size(_neighbors);
-		
-		for ( _i = 0; _i < _neighbor_count; _i++ ) {
-			if (!_visited[_neighbors[| _i].index()]) {
-				_visited[_neighbors[| _i].index()] = true;
-				ds_queue_enqueue(_nq, _neighbors[| _i]);
-			}
-			
-		}
-		
-	}
-	
-}
-
 function dijkstras(_graph, _s) {
 	var _node_count = ds_list_size(_graph.nodes);
 	var _dist = array_create(_node_count); //Distance Values

@@ -9,6 +9,7 @@ function graph() constructor {
 	self.edges = ds_list_create();
 	self.next_id = 0;
 	
+	
 	self.display_origin_x = 0;
 	self.display_origin_y = 0;
 	
@@ -176,8 +177,10 @@ function graph() constructor {
 		
 		//Destroy ds_list in the node to prevent memory leak.
 		ds_list_destroy(_node.edges);
+		ds_map_destroy(_node.relationships);
 		//Delete the node from the graph struct.
 		ds_list_delete(self.nodes, _node.index());
+		
 		
 		return self;
 	}
@@ -207,7 +210,7 @@ function graph() constructor {
 		
 		//Draw Nodes
 		for (var _i = 0; _i<_node_count; _i++) {
-			draw_sprite(Sprite1, 0, self.nodes[| _i].display_x + self.display_origin_x, self.nodes[| _i].display_y + self.display_origin_y);
+			draw_sprite(sNode, 0, self.nodes[| _i].display_x + self.display_origin_x, self.nodes[| _i].display_y + self.display_origin_y);
 			draw_text(self.nodes[| _i].display_x + self.display_origin_x +15, self.nodes[| _i].display_y + self.display_origin_y-25, self.nodes[| _i].tag);
 			
 		}

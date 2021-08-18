@@ -5,8 +5,7 @@ show_debug_overlay(true);
 randomize();
 
 counter = 0;
-myGraph = newGraph(25).setGraphDrawOrigin(room_width/2, room_height/2);
-
+myGraph = newGraph(25).setGraphDrawOrigin(0, 0);
 simpleGrid(myGraph, 5);
 
 myGraph.tagNode(0, "0");
@@ -30,24 +29,10 @@ for (var _i = 0; _i<myGraph.order(); _i++) {
 	myGraph.newEdge(_i, _i+5, 0);
 }
 
+for (var _i = 0; _i<myGraph.order(); _i++) {
+	myGraph.nodes[| _i].display_x = random(room_width);
+	myGraph.nodes[| _i].display_y = random(room_height);
+}
 
-
-	////Randomize Starting Position
-	//for (var _i = 0; _i < myGraph.order(); _i++) {
-	//	myGraph.nodes[| _i].display_x = round(random(room_width));
-	//	myGraph.nodes[| _i].display_y = round(random(room_height));
-	//}
-
-
-//find_pattern(myGraph, "B");
-
-//rule_parser("0:A 1:B 2:C; ${0-1, 0-2} > 0:A 1:B 2:c; ${0-2-1}");
-
-//show_debug_message(string(myGraph));
-//show_debug_message(string(myGraph.getNode(5).index()));
-
-
-
-
-dijkstras(myGraph, 0);
+dijkstras(myGraph, 12);
 
